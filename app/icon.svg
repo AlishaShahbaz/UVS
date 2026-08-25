@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!--
+    THE UVS MARK — favicon cut.
+
+    Drawn separately from the in-page component rather than scaled down from it.
+    At this size the 4-unit offset of the default cut closes optically and the
+    mark reads as a plain ring, so the offset here is doubled and the stroke
+    widened. This is optical sizing, not duplication.
+
+    It also carries its own ink tile. A browser tab can be light or dark, and a
+    transparent mark would lose one of its two arcs on one of them.
+  -->
+  <rect width="64" height="64" rx="14" fill="#0a0b0d"/>
+  <path d="M32 10 A18 18 0 0 0 32 46" fill="none" stroke="#f4f4f2" stroke-width="8" stroke-linecap="round"/>
+  <path d="M32 18 A18 18 0 0 1 32 54" fill="none" stroke="#a5a2f5" stroke-width="8" stroke-linecap="round"/>
+</svg>
