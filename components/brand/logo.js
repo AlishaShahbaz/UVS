@@ -20,14 +20,13 @@
  * optically, the step disappears, and what is left is a plain ring — the one
  * shape this category is most crowded with.
  *
- * So the mark has two cuts: the display cut, and a `compact` cut with a wider
- * stroke and double the offset. The threshold is 40px, established by rendering
- * it rather than guessed — at 26px in the header the display cut had already
- * lost its step.
+ * So the mark has two cuts, defined together with their invariant in
+ * `mark-geometry.js`. They must read as the SAME drawing — the compact cut
+ * exists only to hold the offset open below 20px. Everything above that, the
+ * header included, uses the display cut, which is the drawing that was
+ * approved.
  *
- * The cut is chosen from `size` automatically. Leaving that to the caller is
- * exactly the kind of thing that gets forgotten in one place and quietly ships
- * a worse mark; pass `cut` only to override deliberately.
+ * The cut is chosen from `size` automatically; pass `cut` only to override.
  *
  * The favicon is drawn separately again at its own weights — see `app/icon.svg`.
  */
@@ -35,26 +34,17 @@
 import Link from 'next/link';
 import { company } from '@/content/company';
 import { cn } from '@/design-system';
-
-/** Below this, the display cut's offset closes up. Measured, not assumed. */
-const COMPACT_BELOW = 40;
+import { arcGeometry, cutForSize } from './mark-geometry';
 
 /**
  * The mark alone.
  *
- * @param {number} size            Rendered px. Decides the cut.
+ * @param {number} size                Rendered px. Decides the cut.
  * @param {'display'|'compact'} [cut]  Override. Normally leave unset.
  */
 export function Mark({ size = 28, cut, className, ...props }) {
-  const compact = cut ? cut === 'compact' : size < COMPACT_BELOW;
-
-  /* Two semicircles on one vertical axis, centred 4 (or 8) units apart. The
-     offset is the whole idea, so it is the one number that changes per cut. */
-  const w = compact ? 7.5 : 6;
-  const gap = compact ? 8 : 4;
-  const r = 15;
-  const top = 24 - r + (compact ? 1 : 0);
-  const bottom = 24 + r - (compact ? 1 : 0);
+  const chosen = cut ?? cutForSize(size);
+  const { w, left, right } = arcGeometry(chosen);
 
   return (
     <svg
@@ -66,17 +56,10 @@ export function Mark({ size = 28, cut, className, ...props }) {
       className={cn('shrink-0 overflow-visible', className)}
       {...props}
     >
-      {/* Build — structure, carried by the surrounding text colour. */}
-      <path
-        d={`M24 ${top - gap / 2} A${r} ${r} 0 0 0 24 ${bottom - gap / 2}`}
-        stroke="currentColor"
-        strokeWidth={w}
-        strokeLinecap="round"
-      />
-      {/* Run — the accent half, and the one that moves on hover. */}
+      <path d={left.d} stroke="currentColor" strokeWidth={w} strokeLinecap="round" />
       <path
         className="uvs-seam"
-        d={`M24 ${top + gap / 2} A${r} ${r} 0 0 1 24 ${bottom + gap / 2}`}
+        d={right.d}
         stroke="var(--accent)"
         strokeWidth={w}
         strokeLinecap="round"

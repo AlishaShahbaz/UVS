@@ -14,17 +14,33 @@
  */
 
 import Link from 'next/link';
-import { operationGroups, operations, staffingModel, costPosition } from '@/content/operations';
+import {
+  operationGroups,
+  operations,
+  staffingModel,
+  costPosition,
+} from '@/content/operations';
 import { company } from '@/content/company';
-import { Container, Eyebrow, Headline, Lead, Section, Button, Badge } from '@/design-system';
+import {
+  Container,
+  Eyebrow,
+  Headline,
+  Lead,
+  Section,
+  Button,
+  Badge,
+} from '@/design-system';
 import { IntentSection } from '@/components/sections/intent-section';
 import { DeskExplorer } from '@/components/sections/desk-explorer';
 import { HeroField } from '@/components/bento/hero-field';
+import { spell } from '@/lib/words';
 
 export const metadata = {
   title: 'Run — staffed desks with a service level',
   description:
-    'Eight operations desks across conversation, transaction and compliance: live chat, voice, email, orders, B2B sales, data entry, KYC onboarding and transaction monitoring. Every desk ships with a Team Lead and QA.',
+    `${spell(operations.length, true)} operations desks across conversation, transaction and compliance: ` +
+    `live chat, voice, email, orders, B2B sales, data entry, KYC onboarding and transaction ` +
+    `monitoring. Every desk ships with a Team Lead and QA.`,
   alternates: { canonical: '/operations' },
 };
 
@@ -54,7 +70,7 @@ export default function OperationsPage() {
       />
 
       {/* ── ORIENT ─────────────────────────────────────────────────────── */}
-      <Section register="ink" size="loose" overlap className="border-b border-ink-edge">
+      <Section register="ink" size="loose" overlap className="border-ink-edge border-b">
         <HeroField />
         <Container className="relative">
           <div className="flex flex-col gap-7">
@@ -68,9 +84,9 @@ export default function OperationsPage() {
               className="max-w-[18ch]"
             />
             <Lead className="text-prose-inv-soft">
-              What you buy is a response window that holds under load — not a headcount. The AI
-              layer takes the repetitive share, trained people take the rest, and every desk ships
-              with a Team Lead and an independent QA function.
+              What you buy is a response window that holds under load — not a headcount. The
+              AI layer takes the repetitive share, trained people take the rest, and every
+              desk ships with a Team Lead and an independent QA function.
             </Lead>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button href="/contact" variant="accent">
@@ -88,7 +104,10 @@ export default function OperationsPage() {
       <IntentSection
         intent="evaluate"
         eyebrowOverride="The desks"
-        headline={{ lead: 'Eight desks.', accent: 'Each one a queue with a number on it.' }}
+        headline={{
+          lead: `${spell(operations.length, true)} desks.`,
+          accent: 'Each one a queue with a number on it.',
+        }}
         lead="Conversation, transaction and compliance. Preview any of them here; each links through to the full page."
         containerSize="wide"
       >
@@ -105,18 +124,18 @@ export default function OperationsPage() {
         containerSize="wide"
       >
         <div className="flex flex-col gap-8">
-          <ul className="grid gap-px overflow-hidden rounded-panel border border-paper-edge bg-paper-edge md:grid-cols-2 lg:grid-cols-4">
+          <ul className="rounded-panel border-paper-edge bg-paper-edge grid gap-px overflow-hidden border md:grid-cols-2 lg:grid-cols-4">
             {staffingModel.roles.map((role, i) => (
-              <li key={role.role} className="flex flex-col gap-3 bg-paper p-7">
-                <span className="font-mono text-eyebrow uppercase tracking-[0.16em] text-[var(--accent)]">
+              <li key={role.role} className="bg-paper flex flex-col gap-3 p-7">
+                <span className="text-eyebrow font-mono tracking-[0.16em] text-[var(--accent)] uppercase">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <h3 className="text-h4 font-medium">{role.role}</h3>
-                <p className="text-micro leading-relaxed text-prose-soft">{role.body}</p>
+                <p className="text-micro text-prose-soft leading-relaxed">{role.body}</p>
               </li>
             ))}
           </ul>
-          <p className="measure border-l-2 border-paper-edge py-1 pl-6 text-micro leading-relaxed text-prose-soft">
+          <p className="measure border-paper-edge text-micro text-prose-soft border-l-2 py-1 pl-6 leading-relaxed">
             {staffingModel.note}
           </p>
         </div>
@@ -129,11 +148,11 @@ export default function OperationsPage() {
             <div className="flex flex-col gap-6">
               <Eyebrow>Cost</Eyebrow>
               <Headline level={2} headline={costPosition.headline} />
-              <p className="text-h3 font-medium leading-tight text-prose-inv">
+              <p className="text-h3 text-prose-inv leading-tight font-medium">
                 <span className="text-[var(--accent)]">{costPosition.claim}</span>{' '}
                 <span className="text-prose-inv-soft">{costPosition.basis}.</span>
               </p>
-              <p className="measure text-lead leading-relaxed text-prose-inv-soft">
+              <p className="measure text-lead text-prose-inv-soft leading-relaxed">
                 {costPosition.body}
               </p>
             </div>
@@ -143,17 +162,19 @@ export default function OperationsPage() {
                 {costPosition.reasons.map((reason) => (
                   <li
                     key={reason.title}
-                    className="flex flex-col gap-1.5 border-t border-paper-edge py-5 last:border-b"
+                    className="border-paper-edge flex flex-col gap-1.5 border-t py-5 last:border-b"
                   >
-                    <span className="text-h4 font-medium text-prose-inv">{reason.title}</span>
-                    <span className="text-micro leading-relaxed text-prose-inv-soft">
+                    <span className="text-h4 text-prose-inv font-medium">
+                      {reason.title}
+                    </span>
+                    <span className="text-micro text-prose-inv-soft leading-relaxed">
                       {reason.body}
                     </span>
                   </li>
                 ))}
               </ul>
-              <p className="measure text-micro leading-relaxed text-prose-inv-faint">
-                <span className="font-mono text-eyebrow uppercase tracking-[0.16em] text-[var(--accent)]">
+              <p className="measure text-micro text-prose-inv-faint leading-relaxed">
+                <span className="text-eyebrow font-mono tracking-[0.16em] text-[var(--accent)] uppercase">
                   The honest caveat ·{' '}
                 </span>
                 {costPosition.caveat}
@@ -179,7 +200,7 @@ export default function OperationsPage() {
           </Button>
           <Link
             href="/industries"
-            className="inline-flex items-center gap-2 px-3 py-3 text-micro text-prose-soft transition-colors hover:text-prose"
+            className="text-micro text-prose-soft hover:text-prose inline-flex items-center gap-2 px-3 py-3 transition-colors"
           >
             All business types
             <span aria-hidden>→</span>

@@ -9,14 +9,22 @@
 import Link from 'next/link';
 import { niches } from '@/content/niches';
 import { company } from '@/content/company';
-import { Container, Eyebrow, Headline, Lead, Section, Button, Badge } from '@/design-system';
+import {
+  Container,
+  Eyebrow,
+  Headline,
+  Lead,
+  Section,
+  Button,
+  Badge,
+} from '@/design-system';
 import { IntentSection } from '@/components/sections/intent-section';
 import { HeroField } from '@/components/bento/hero-field';
+import { spell } from '@/lib/words';
 
 export const metadata = {
   title: 'Industries — who the work is built for',
-  description:
-    'Twelve business types, the operational pressure behind each, and the systems and desks that apply. Named business types, not sectors.',
+  description: `${spell(niches.length, true)} business types, the operational pressure behind each, and the systems and desks that apply. Named business types, not sectors.`,
   alternates: { canonical: '/industries' },
 };
 
@@ -41,7 +49,7 @@ export default function IndustriesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Section register="ink" size="loose" overlap className="border-b border-ink-edge">
+      <Section register="ink" size="loose" overlap className="border-ink-edge border-b">
         <HeroField />
         <Container className="relative">
           <div className="flex flex-col gap-7">
@@ -51,13 +59,16 @@ export default function IndustriesPage() {
             </div>
             <Headline
               level={1}
-              headline={{ lead: 'A sector tells you nothing.', accent: 'A business type does.' }}
+              headline={{
+                lead: 'A sector tells you nothing.',
+                accent: 'A business type does.',
+              }}
               className="max-w-[20ch]"
             />
             <Lead className="text-prose-inv-soft">
-              &ldquo;Healthcare&rdquo; describes an industry. &ldquo;Multi-site clinics running
-              their own front desk&rdquo; describes a business, and either it is yours or it is not.
-              Find the one that reads like your week.
+              &ldquo;Healthcare&rdquo; describes an industry. &ldquo;Multi-site clinics
+              running their own front desk&rdquo; describes a business, and either it is
+              yours or it is not. Find the one that reads like your week.
             </Lead>
           </div>
         </Container>
@@ -66,16 +77,19 @@ export default function IndustriesPage() {
       <IntentSection
         intent="qualify"
         eyebrowOverride="Find yours"
-        headline={{ lead: 'Twelve business types,', accent: 'and the pressure behind each.' }}
+        headline={{
+          lead: `${spell(niches.length, true)} business types,`,
+          accent: 'and the pressure behind each.',
+        }}
         lead="Each page names the operational pressure, the signals that indicate it, and the specific constraint we design around. If the pressure does not describe you, the services underneath it will not either."
         containerSize="wide"
       >
-        <ul className="grid gap-px overflow-hidden rounded-panel border border-paper-edge bg-paper-edge md:grid-cols-2">
+        <ul className="rounded-panel border-paper-edge bg-paper-edge grid gap-px overflow-hidden border md:grid-cols-2">
           {niches.map((niche) => (
             <li key={niche.slug} data-accent={niche.accent} className="bg-paper">
               <Link
                 href={`/industries/${niche.slug}`}
-                className="group flex h-full flex-col gap-4 p-7 transition-colors hover:bg-paper-sunk md:p-8"
+                className="group hover:bg-paper-sunk flex h-full flex-col gap-4 p-7 transition-colors md:p-8"
               >
                 <div className="flex items-center justify-between gap-4">
                   <h2 className="text-h3 font-medium transition-colors group-hover:text-[var(--accent)]">
@@ -83,15 +97,15 @@ export default function IndustriesPage() {
                   </h2>
                   <span
                     aria-hidden
-                    className="shrink-0 text-prose-faint transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[var(--accent)]"
+                    className="text-prose-faint shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[var(--accent)]"
                   >
                     →
                   </span>
                 </div>
 
-                <p className="text-micro leading-relaxed text-prose-soft">{niche.who}</p>
+                <p className="text-micro text-prose-soft leading-relaxed">{niche.who}</p>
 
-                <p className="mt-auto flex flex-wrap gap-x-3 gap-y-1 border-t border-paper-edge pt-4 font-mono text-eyebrow uppercase tracking-[0.12em] text-prose-faint">
+                <p className="border-paper-edge text-eyebrow text-prose-faint mt-auto flex flex-wrap gap-x-3 gap-y-1 border-t pt-4 font-mono tracking-[0.12em] uppercase">
                   <span className="text-[var(--accent)]">
                     {niche.services.length} build
                   </span>

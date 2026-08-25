@@ -16,10 +16,20 @@ import { services, serviceGroups } from '@/content/services';
 import { operations } from '@/content/operations';
 import { niches } from '@/content/niches';
 import { company } from '@/content/company';
-import { Container, Eyebrow, Headline, Lead, Section, Button, Badge, Datum } from '@/design-system';
+import {
+  Container,
+  Eyebrow,
+  Headline,
+  Lead,
+  Section,
+  Button,
+  Badge,
+  Datum,
+} from '@/design-system';
 import { IntentSection } from '@/components/sections/intent-section';
 import { HandoffFigure } from '@/components/sections/handoff-figure';
 import { HeroField } from '@/components/bento/hero-field';
+import { spell } from '@/lib/words';
 
 export const metadata = {
   title: 'Universal Virtual Support — we build the system, then we run it',
@@ -88,12 +98,19 @@ export default function HomePage() {
       />
 
       {/* ── ORIENT ─────────────────────────────────────────────────────── */}
-      <Section register="ink" size="loose" overlap className="border-b border-ink-edge">
+      <Section register="ink" size="loose" overlap className="border-ink-edge border-b">
         <HeroField />
         <Container size="wide" className="relative">
           <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr] lg:items-end">
             <div className="flex flex-col gap-8">
-              <Eyebrow>Support &amp; AI engineering</Eyebrow>
+              {/* The company name sits here rather than only in the header.
+                  "UVS" is a short form nobody arriving from an ad has seen
+                  before, and the headline is a positioning line rather than an
+                  introduction — so without this, a first-time visitor did not
+                  learn the actual name until the footer. It stands alone: the
+                  headline and lead directly beneath already say what the
+                  company does, so a category label here only competes with them. */}
+              <Eyebrow>{company.name}</Eyebrow>
 
               <h1 className="text-h1 font-medium [text-wrap:balance]">
                 We build the system.
@@ -102,9 +119,9 @@ export default function HomePage() {
               </h1>
 
               <Lead className="text-prose-inv-soft">
-                Most vendors sell you one half. An agency builds the system and hands you the queue
-                it creates. A BPO staffs the queue and has no way to reduce it. We do both — which
-                is why the seam between them is the part we care most about.
+                Most vendors sell you one half. An agency builds the system and hands you
+                the queue it creates. A BPO staffs the queue and has no way to reduce it. We
+                do both — which is why the seam between them is the part we care most about.
               </Lead>
 
               <div className="flex flex-wrap items-center gap-3">
@@ -118,14 +135,14 @@ export default function HomePage() {
             </div>
 
             {/* The two halves, stated as an index. */}
-            <div className="flex flex-col gap-px overflow-hidden rounded-panel border border-paper-edge bg-paper-edge">
+            <div className="rounded-panel border-paper-edge bg-paper-edge flex flex-col gap-px overflow-hidden border">
               {company.halves.map((half) => (
                 <Link
                   key={half.id}
                   href={half.href}
-                  className="group flex flex-col gap-2 bg-ink p-6 transition-colors hover:bg-ink-lift"
+                  className="group bg-ink hover:bg-ink-lift flex flex-col gap-2 p-6 transition-colors"
                 >
-                  <span className="flex items-center gap-3 font-mono text-eyebrow uppercase tracking-[0.16em] text-[var(--accent)]">
+                  <span className="text-eyebrow flex items-center gap-3 font-mono tracking-[0.16em] text-[var(--accent)] uppercase">
                     {half.label}
                     <span
                       aria-hidden
@@ -135,7 +152,7 @@ export default function HomePage() {
                     </span>
                   </span>
                   <span className="text-h4 font-medium">{half.title}</span>
-                  <span className="text-micro leading-relaxed text-prose-inv-faint">
+                  <span className="text-micro text-prose-inv-faint leading-relaxed">
                     {half.body}
                   </span>
                 </Link>
@@ -158,7 +175,7 @@ export default function HomePage() {
           <HandoffFigure />
 
           <div className="flex flex-col gap-8 lg:pt-4">
-            <p className="measure text-lead leading-relaxed text-prose-soft">
+            <p className="measure text-lead text-prose-soft leading-relaxed">
               {company.positioning.body}
             </p>
 
@@ -177,9 +194,14 @@ export default function HomePage() {
                   b: 'So spend is planned against response capacity before it is planned against channels.',
                 },
               ].map((item) => (
-                <li key={item.t} className="flex flex-col gap-1 border-t border-paper-edge py-4 last:border-b">
-                  <span className="text-micro font-medium text-prose">{item.t}</span>
-                  <span className="text-micro leading-relaxed text-prose-faint">{item.b}</span>
+                <li
+                  key={item.t}
+                  className="border-paper-edge flex flex-col gap-1 border-t py-4 last:border-b"
+                >
+                  <span className="text-micro text-prose font-medium">{item.t}</span>
+                  <span className="text-micro text-prose-faint leading-relaxed">
+                    {item.b}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -194,21 +216,21 @@ export default function HomePage() {
         lead="Every service page names the business types it was built for, and says who it is not for. If your week is described on one of these pages, the rest of the site will make sense. If it is not, we would rather you found out here."
         containerSize="wide"
       >
-        <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-panel border border-paper-edge bg-paper-edge sm:grid-cols-3 lg:grid-cols-4">
+        <ul className="rounded-panel border-paper-edge bg-paper-edge grid grid-cols-2 gap-px overflow-hidden border sm:grid-cols-3 lg:grid-cols-4">
           {niches.map((niche) => (
             <li key={niche.slug} data-accent={niche.accent} className="bg-paper">
               <Link
                 href={`/industries/${niche.slug}`}
-                className="group flex h-full flex-col gap-2 p-5 transition-colors hover:bg-paper-sunk"
+                className="group hover:bg-paper-sunk flex h-full flex-col gap-2 p-5 transition-colors"
               >
                 <span
                   aria-hidden
                   className="h-1 w-6 rounded-full bg-[var(--accent)] opacity-40 transition-opacity duration-300 group-hover:opacity-100"
                 />
-                <span className="text-micro font-medium leading-snug text-prose">
+                <span className="text-micro text-prose leading-snug font-medium">
                   {niche.label}
                 </span>
-                <span className="mt-auto pt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-prose-faint">
+                <span className="text-prose-faint mt-auto pt-2 font-mono text-[10px] tracking-[0.12em] uppercase">
                   {niche.services.length} build · {niche.operations.length} run
                 </span>
               </Link>
@@ -224,30 +246,33 @@ export default function HomePage() {
           <header className="flex flex-col gap-5">
             <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
               <Eyebrow>Run</Eyebrow>
-              <span className="font-mono text-eyebrow uppercase tracking-[0.14em] text-prose-faint">
+              <span className="text-eyebrow text-prose-faint font-mono tracking-[0.14em] uppercase">
                 What exactly would I be buying?
               </span>
             </div>
             <Headline
               level={2}
-              headline={{ lead: 'Six desks.', accent: 'Each one a queue with a number on it.' }}
+              headline={{
+                lead: `${spell(operations.length, true)} desks.`,
+                accent: 'Each one a queue with a number on it.',
+              }}
               className="max-w-4xl"
             />
             <Lead className="text-prose-inv-soft">
-              What you buy is a response window that holds under load — not a headcount. The AI
-              layer takes the repetitive share, trained people take the rest, and the split between
-              them is measured and reported weekly rather than asserted here.
+              What you buy is a response window that holds under load — not a headcount. The
+              AI layer takes the repetitive share, trained people take the rest, and the
+              split between them is measured and reported weekly rather than asserted here.
             </Lead>
           </header>
 
-          <ul className="mt-12 grid gap-px overflow-hidden rounded-panel border border-paper-edge bg-paper-edge md:mt-16 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="rounded-panel border-paper-edge bg-paper-edge mt-12 grid gap-px overflow-hidden border md:mt-16 md:grid-cols-2 lg:grid-cols-3">
             {operations.map((operation) => (
               <li key={operation.slug} data-accent={operation.accent} className="bg-ink">
                 <Link
                   href={`/operations/${operation.slug}`}
-                  className="group flex h-full flex-col gap-3 p-7 transition-colors hover:bg-ink-lift"
+                  className="group hover:bg-ink-lift flex h-full flex-col gap-3 p-7 transition-colors"
                 >
-                  <span className="flex items-center gap-2 font-mono text-eyebrow uppercase tracking-[0.14em] text-[var(--accent)]">
+                  <span className="text-eyebrow flex items-center gap-2 font-mono tracking-[0.14em] text-[var(--accent)] uppercase">
                     {operation.eyebrow}
                     <span
                       aria-hidden
@@ -256,13 +281,13 @@ export default function HomePage() {
                       →
                     </span>
                   </span>
-                  <span className="text-h4 font-medium leading-snug [text-wrap:balance]">
+                  <span className="text-h4 leading-snug font-medium [text-wrap:balance]">
                     {operation.headline.lead}{' '}
                     <span className="accent-phrase text-prose-inv-soft">
                       {operation.headline.accent}
                     </span>
                   </span>
-                  <span className="text-micro leading-relaxed text-prose-inv-faint">
+                  <span className="text-micro text-prose-inv-faint leading-relaxed">
                     {operation.summary}
                   </span>
                 </Link>
@@ -291,17 +316,17 @@ export default function HomePage() {
         <div className="flex flex-col gap-10">
           {serviceGroups.map((group) => (
             <div key={group.name} className="flex flex-col gap-4">
-              <p className="font-mono text-eyebrow uppercase tracking-[0.16em] text-prose-faint">
+              <p className="text-eyebrow text-prose-faint font-mono tracking-[0.16em] uppercase">
                 {group.name}
               </p>
-              <ul className="grid gap-px overflow-hidden rounded-tile border border-paper-edge bg-paper-edge md:grid-cols-2 lg:grid-cols-3">
+              <ul className="rounded-tile border-paper-edge bg-paper-edge grid gap-px overflow-hidden border md:grid-cols-2 lg:grid-cols-3">
                 {group.services.map((service) => (
                   <li key={service.slug} data-accent={service.accent} className="bg-paper">
                     <Link
                       href={`/services/${service.slug}`}
-                      className="group flex h-full flex-col gap-3 p-6 transition-colors hover:bg-paper-sunk"
+                      className="group hover:bg-paper-sunk flex h-full flex-col gap-3 p-6 transition-colors"
                     >
-                      <span className="flex items-center gap-2 font-mono text-eyebrow uppercase tracking-[0.14em] text-[var(--accent)]">
+                      <span className="text-eyebrow flex items-center gap-2 font-mono tracking-[0.14em] text-[var(--accent)] uppercase">
                         {service.eyebrow}
                         <span
                           aria-hidden
@@ -310,7 +335,7 @@ export default function HomePage() {
                           →
                         </span>
                       </span>
-                      <span className="text-micro leading-relaxed text-prose-soft">
+                      <span className="text-micro text-prose-soft leading-relaxed">
                         {service.summary}
                       </span>
                     </Link>
@@ -332,17 +357,22 @@ export default function HomePage() {
       <IntentSection
         intent="derisk"
         eyebrowOverride="What we commit to"
-        headline={{ lead: 'Ten thousand clients is a number.', accent: 'These are the commitments behind it.' }}
+        headline={{
+          lead: 'Ten thousand clients is a number.',
+          accent: 'These are the commitments behind it.',
+        }}
         lead="A track record tells you we have done this before. It does not tell you how we will work with you. Everything below is checkable during an engagement rather than asserted on a homepage."
       >
-        <ul className="grid gap-px overflow-hidden rounded-panel border border-paper-edge bg-paper-edge md:grid-cols-2 lg:grid-cols-3">
+        <ul className="rounded-panel border-paper-edge bg-paper-edge grid gap-px overflow-hidden border md:grid-cols-2 lg:grid-cols-3">
           {company.commitments.map((commitment, i) => (
-            <li key={commitment.title} className="flex flex-col gap-3 bg-paper p-7">
-              <span className="font-mono text-eyebrow uppercase tracking-[0.16em] text-[var(--accent)]">
+            <li key={commitment.title} className="bg-paper flex flex-col gap-3 p-7">
+              <span className="text-eyebrow font-mono tracking-[0.16em] text-[var(--accent)] uppercase">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 className="text-h4 font-medium">{commitment.title}</h3>
-              <p className="text-micro leading-relaxed text-prose-soft">{commitment.body}</p>
+              <p className="text-micro text-prose-soft leading-relaxed">
+                {commitment.body}
+              </p>
             </li>
           ))}
         </ul>
@@ -357,14 +387,14 @@ export default function HomePage() {
         register="sunk"
         containerSize="wide"
       >
-        <ol className="grid gap-px overflow-hidden rounded-panel border border-paper-edge bg-paper-edge md:grid-cols-2 lg:grid-cols-3">
+        <ol className="rounded-panel border-paper-edge bg-paper-edge grid gap-px overflow-hidden border md:grid-cols-2 lg:grid-cols-3">
           {company.process.stages.map((stage) => (
-            <li key={stage.n} className="flex flex-col gap-3 bg-paper p-7">
-              <span className="font-mono text-eyebrow uppercase tracking-[0.16em] text-[var(--accent)]">
+            <li key={stage.n} className="bg-paper flex flex-col gap-3 p-7">
+              <span className="text-eyebrow font-mono tracking-[0.16em] text-[var(--accent)] uppercase">
                 {stage.n}
               </span>
               <h3 className="text-h4 font-medium">{stage.step}</h3>
-              <p className="text-micro leading-relaxed text-prose-soft">{stage.body}</p>
+              <p className="text-micro text-prose-soft leading-relaxed">{stage.body}</p>
             </li>
           ))}
         </ol>
@@ -391,7 +421,7 @@ export default function HomePage() {
               </Button>
             </div>
 
-            <dl className="mt-8 grid gap-8 border-t border-paper-edge pt-10 sm:grid-cols-4">
+            <dl className="border-paper-edge mt-8 grid gap-8 border-t pt-10 sm:grid-cols-4">
               {company.figures.map((figure) => (
                 <Datum key={figure.label} value={figure.value} label={figure.label} />
               ))}

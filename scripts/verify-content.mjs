@@ -18,10 +18,16 @@
 
 import { services, serviceBySlug } from '../content/services/index.js';
 import { operations, operationBySlug } from '../content/operations.js';
-import { niches, nicheBySlug } from '../content/niches.js';
+import {
+  niches,
+  nicheBySlug,
+  DISPLAY_ORDER as nicheOrder,
+  orphanedOrderSlugs,
+} from '../content/niches.js';
 import { legalPlaceholders } from '../content/legal.js';
 import { company, unverifiedFigures } from '../content/company.js';
 import { INTENT_LADDER } from '../content/intent.js';
+import { arcGeometry } from '../components/brand/mark-geometry.js';
 
 const errors = [];
 const warnings = [];
@@ -171,6 +177,59 @@ for (const service of services) {
 const LADDER_IDS = new Set(INTENT_LADDER.map((i) => i.id));
 for (const id of ['orient', 'qualify', 'recognise', 'evaluate', 'understand', 'justify', 'derisk', 'object', 'extend', 'act']) {
   if (!LADDER_IDS.has(id)) fail(`intent ladder is missing rung "${id}", which pages render`);
+}
+
+/* Niche display order.
+ *
+ * DISPLAY_ORDER drives the header dropdown, the industries hub, the homepage
+ * grid, the footer column and the sitemap from one list. Two ways it can rot:
+ * a slug in the list that no longer exists (silently ignored by the sort), and
+ * a niche missing from the list (silently dropped to the end). The first is a
+ * defect; the second is only a defect if nobody meant it. */
+if (orphanedOrderSlugs().length) {
+  fail(
+    `DISPLAY_ORDER in content/niches.js names ${orphanedOrderSlugs().length} slug(s) that no ` +
+      `longer exist: ${orphanedOrderSlugs().join(', ')}`,
+  );
+}
+{
+  const unordered = niches.filter((n) => !nicheOrder.includes(n.slug));
+  if (unordered.length) {
+    warn(
+      `${unordered.length} niche(s) not named in DISPLAY_ORDER and sorted to the end: ` +
+        `${unordered.map((n) => n.slug).join(', ')}`,
+    );
+  }
+}
+
+/* Mark geometry.
+ *
+ * Each arc of the logo must be a true semicircle: the distance between its
+ * endpoints has to equal the diameter. Break that and the arc silently becomes
+ * a shallow segment, the two halves merge, and the mark stops being the mark —
+ * which is exactly what shipped once, when the offset was widened by moving the
+ * endpoints instead of the centres.
+ *
+ * It is a one-line assertion guarding a defect that is invisible in code review
+ * and obvious on screen. */
+for (const cut of ['display', 'compact']) {
+  const g = arcGeometry(cut);
+  const diameter = g.r * 2;
+  for (const side of ['left', 'right']) {
+    const chord = g[side].to - g[side].from;
+    if (Math.abs(chord - diameter) > 0.001) {
+      fail(
+        `mark "${cut}" cut, ${side} arc: endpoints are ${chord} apart but the diameter is ` +
+          `${diameter}. The arc is not a semicircle and the mark will render malformed.`,
+      );
+    }
+  }
+  /* And it has to fit the 48-unit box once the stroke is accounted for. */
+  const top = Math.min(g.left.from, g.right.from) - g.w / 2;
+  const bottom = Math.max(g.left.to, g.right.to) + g.w / 2;
+  if (top < 0 || bottom > 48) {
+    fail(`mark "${cut}" cut overflows its 48-unit box (${top} to ${bottom}).`);
+  }
 }
 
 /* ── 8. Launch requirements ───────────────────────────────────────────── */

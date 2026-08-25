@@ -78,7 +78,19 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${interTight.variable} ${instrument.variable} ${jetbrains.variable}`}
     >
-      <body className="min-h-screen antialiased">
+      {/* The brand accent lives on <body>, not on a page wrapper.
+       *
+       * The header and footer are siblings of <main>, so anything scoped inside
+       * a page could never reach them — and for a while nothing did: both were
+       * resolving `--accent` to the neutral `:root` fallback, which rendered the
+       * logo's accent arc, the active nav underline and every footer hover in
+       * plain white instead of iris.
+       *
+       * Setting it here gives the whole document a default. Pages still set
+       * their own `data-accent` on their wrapper, which wins inside that subtree
+       * by proximity — so a service page tints itself while the chrome around it
+       * stays on the brand hue, which is what a logo should do. */}
+      <body data-accent="iris" className="min-h-screen antialiased">
         <Header />
         <main id="main">{children}</main>
         <Footer />

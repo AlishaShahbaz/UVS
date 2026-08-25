@@ -83,14 +83,27 @@ export function Header() {
      are the same state and this stays correct. */
   const floating = !scrolled && !openLabel;
 
+  /* Three states, not two.
+   *
+   * Frosted translucency is right for a bar that content scrolls beneath — it
+   * reads as glass and the movement explains it. It is wrong for the mega
+   * panel, which is a discrete surface with nothing moving behind it: at 95%
+   * opacity a large dark headline underneath ghosts straight through, and a
+   * translucent header strip above a more opaque panel leaves a visible tonal
+   * seam between the two.
+   *
+   * So when the panel is open, the header and the panel both go fully opaque
+   * and become one surface. */
+  const menuOpen = Boolean(openLabel);
+
   return (
     <header
       data-register={floating ? 'ink' : undefined}
       className={cn(
         'sticky top-0 z-50 transition-all duration-300',
-        floating
-          ? 'border-b border-transparent bg-transparent'
-          : 'border-b border-paper-edge bg-paper/85 backdrop-blur-xl',
+        floating && 'border-b border-transparent bg-transparent',
+        menuOpen && 'border-b border-paper-edge bg-paper',
+        !floating && !menuOpen && 'border-b border-paper-edge bg-paper/85 backdrop-blur-xl',
       )}
       onMouseLeave={scheduleClose}
     >
@@ -152,7 +165,8 @@ export function Header() {
       {/* Mega panel — one element, re-rendered per section. */}
       <div
         className={cn(
-          'absolute inset-x-0 top-full hidden overflow-hidden border-b border-paper-edge bg-paper/95 backdrop-blur-xl transition-[max-height,opacity] duration-300 lg:block',
+          /* Opaque, not frosted — see the note on `menuOpen` above. */
+          'absolute inset-x-0 top-full hidden overflow-hidden border-b border-paper-edge bg-paper shadow-[0_18px_40px_-24px_rgba(10,11,13,0.28)] transition-[max-height,opacity] duration-300 lg:block',
           active ? 'max-h-[32rem] opacity-100' : 'pointer-events-none max-h-0 opacity-0',
         )}
         onMouseEnter={() => clearTimeout(closeTimer.current)}

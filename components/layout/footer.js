@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { footerNav } from '@/content/navigation';
 import { company } from '@/content/company';
 import { Container } from '@/design-system';
-import { Mark } from '@/components/brand/logo';
+import { Logo } from '@/components/brand/logo';
 import { SocialLinks } from '@/components/brand/socials';
 
 export function Footer() {
@@ -23,7 +23,9 @@ export function Footer() {
         {/* The model, restated. */}
         <div className="grid gap-10 border-b border-paper-edge pb-14 md:grid-cols-[1.2fr_1fr] md:gap-16">
           <div className="flex flex-col gap-6">
-            <Mark size={40} />
+            {/* Full lockup here — 40px is the size at which the descriptor is
+                legible, so the footer is where the company name is spelled out. */}
+            <Logo size={40} descriptor />
             <p className="text-h2 font-medium leading-[1.05] [text-wrap:balance]">
               We build the system.{' '}
               <span className="accent-phrase text-prose-soft">Then we run it.</span>

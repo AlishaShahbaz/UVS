@@ -7,22 +7,32 @@
  */
 
 import { company } from '@/content/company';
-import { Container, Eyebrow, Headline, Lead, Section, Button, Datum } from '@/design-system';
+import {
+  Container,
+  Eyebrow,
+  Headline,
+  Lead,
+  Section,
+  Button,
+  Datum,
+} from '@/design-system';
 import { IntentSection } from '@/components/sections/intent-section';
 import { HandoffFigure } from '@/components/sections/handoff-figure';
 import { HeroField } from '@/components/bento/hero-field';
+import { spell } from '@/lib/words';
 
 export const metadata = {
   title: 'How we work',
   description:
-    'Two halves of the same business, the commitments we hold ourselves to, and the six stages an engagement runs through — including the ones where you can stop.',
+    `Two halves of the same business, the commitments we hold ourselves to, and the ` +
+    `${spell(company.process.stages.length)} stages an engagement runs through — including the ones where you can stop.`,
   alternates: { canonical: '/about' },
 };
 
 export default function AboutPage() {
   return (
     <div data-accent="slate">
-      <Section register="ink" size="loose" overlap className="border-b border-ink-edge">
+      <Section register="ink" size="loose" overlap className="border-ink-edge border-b">
         <HeroField />
         <Container className="relative">
           <div className="flex flex-col gap-7">
@@ -62,18 +72,20 @@ export default function AboutPage() {
             {company.founder.points.map((point) => (
               <li
                 key={point}
-                className="flex items-start gap-4 border-t border-paper-edge py-4 last:border-b"
+                className="border-paper-edge flex items-start gap-4 border-t py-4 last:border-b"
               >
                 <span aria-hidden className="mt-2.5 h-px w-4 shrink-0 bg-[var(--accent)]" />
-                <span className="text-micro leading-relaxed text-prose-soft">{point}</span>
+                <span className="text-micro text-prose-soft leading-relaxed">{point}</span>
               </li>
             ))}
           </ul>
-          <aside className="flex h-fit flex-col gap-3 rounded-panel border border-paper-edge bg-paper-sunk p-7">
-            <p className="font-mono text-eyebrow uppercase tracking-[0.16em] text-[var(--accent)]">
+          <aside className="rounded-panel border-paper-edge bg-paper-sunk flex h-fit flex-col gap-3 border p-7">
+            <p className="text-eyebrow font-mono tracking-[0.16em] text-[var(--accent)] uppercase">
               {company.founder.name}
             </p>
-            <p className="text-micro leading-relaxed text-prose-soft">{company.founder.note}</p>
+            <p className="text-micro text-prose-soft leading-relaxed">
+              {company.founder.note}
+            </p>
           </aside>
         </div>
       </IntentSection>
@@ -81,17 +93,22 @@ export default function AboutPage() {
       <IntentSection
         intent="derisk"
         eyebrowOverride="Commitments"
-        headline={{ lead: 'Six things we hold ourselves to,', accent: 'and you can check all of them.' }}
+        headline={{
+          lead: `${spell(company.commitments.length, true)} things we hold ourselves to,`,
+          accent: 'and you can check all of them.',
+        }}
         lead="Not values. Commitments — each one observable during an engagement rather than asserted on a website."
       >
-        <ul className="grid gap-px overflow-hidden rounded-panel border border-paper-edge bg-paper-edge md:grid-cols-2 lg:grid-cols-3">
+        <ul className="rounded-panel border-paper-edge bg-paper-edge grid gap-px overflow-hidden border md:grid-cols-2 lg:grid-cols-3">
           {company.commitments.map((commitment, i) => (
-            <li key={commitment.title} className="flex flex-col gap-3 bg-paper p-7">
-              <span className="font-mono text-eyebrow uppercase tracking-[0.16em] text-[var(--accent)]">
+            <li key={commitment.title} className="bg-paper flex flex-col gap-3 p-7">
+              <span className="text-eyebrow font-mono tracking-[0.16em] text-[var(--accent)] uppercase">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h2 className="text-h4 font-medium">{commitment.title}</h2>
-              <p className="text-micro leading-relaxed text-prose-soft">{commitment.body}</p>
+              <p className="text-micro text-prose-soft leading-relaxed">
+                {commitment.body}
+              </p>
             </li>
           ))}
         </ul>
@@ -108,13 +125,15 @@ export default function AboutPage() {
           {company.process.stages.map((stage) => (
             <li
               key={stage.n}
-              className="group grid gap-4 border-t border-paper-edge py-8 last:border-b md:grid-cols-[6rem_10rem_1fr] md:gap-8"
+              className="group border-paper-edge grid gap-4 border-t py-8 last:border-b md:grid-cols-[6rem_10rem_1fr] md:gap-8"
             >
-              <span className="font-mono text-eyebrow uppercase tracking-[0.16em] text-prose-faint transition-colors group-hover:text-[var(--accent)]">
+              <span className="text-eyebrow text-prose-faint font-mono tracking-[0.16em] uppercase transition-colors group-hover:text-[var(--accent)]">
                 {stage.n}
               </span>
               <h2 className="text-h4 font-medium">{stage.step}</h2>
-              <p className="measure text-micro leading-relaxed text-prose-soft">{stage.body}</p>
+              <p className="measure text-micro text-prose-soft leading-relaxed">
+                {stage.body}
+              </p>
             </li>
           ))}
         </ol>
@@ -126,7 +145,10 @@ export default function AboutPage() {
             <Eyebrow>Start</Eyebrow>
             <Headline
               level={2}
-              headline={{ lead: 'The first call is thirty minutes', accent: 'and there is no deck.' }}
+              headline={{
+                lead: 'The first call is thirty minutes',
+                accent: 'and there is no deck.',
+              }}
               className="max-w-3xl"
             />
             <Lead className="text-prose-inv-soft">{company.contact.body}</Lead>
@@ -138,7 +160,7 @@ export default function AboutPage() {
                 Read the awkward questions
               </Button>
             </div>
-            <dl className="mt-8 grid gap-8 border-t border-paper-edge pt-10 sm:grid-cols-4">
+            <dl className="border-paper-edge mt-8 grid gap-8 border-t pt-10 sm:grid-cols-4">
               {company.figures.map((figure) => (
                 <Datum key={figure.label} value={figure.value} label={figure.label} />
               ))}

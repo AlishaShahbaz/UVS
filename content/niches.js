@@ -29,7 +29,7 @@
  *   accent      Palette key from globals.css.
  */
 
-export const niches = [
+const nicheEntries = [
   {
     slug: 'home-services',
     label: 'Home services',
@@ -272,6 +272,49 @@ export const niches = [
     operations: ['data-entry', 'order-taking', 'b2b-sales', 'email-support'],
   },
 ];
+
+/**
+ * DISPLAY ORDER — the sequence every menu, grid and index renders in.
+ *
+ * Kept as an explicit list rather than as the physical order of the objects
+ * above, for one reason: commercial priority changes and the definitions do
+ * not. Reordering this array reorders the header dropdown, the industries hub,
+ * the homepage grid, the footer column and the sitemap at once, and nobody has
+ * to move a forty-line object to do it.
+ *
+ * The header splits this list into two columns of six and seven, so the first
+ * six read down the left and the rest down the right.
+ *
+ * Anything not listed falls to the end in its original order — a new niche is
+ * never dropped, it just is not prioritised until someone says so.
+ */
+export const DISPLAY_ORDER = [
+  'fintech',
+  'logistics',
+  'real-estate',
+  'healthcare',
+  'financial-services',
+  'hospitality',
+  'automotive',
+  'ecommerce',
+  'saas',
+  'home-services',
+  'legal',
+  'education',
+  'manufacturing',
+];
+
+export const niches = [...nicheEntries].sort((a, b) => {
+  const ai = DISPLAY_ORDER.indexOf(a.slug);
+  const bi = DISPLAY_ORDER.indexOf(b.slug);
+  return (ai === -1 ? Infinity : ai) - (bi === -1 ? Infinity : bi);
+});
+
+/** Slugs named in DISPLAY_ORDER that no longer exist. Checked by verify:content. */
+export function orphanedOrderSlugs() {
+  const known = new Set(nicheEntries.map((n) => n.slug));
+  return DISPLAY_ORDER.filter((slug) => !known.has(slug));
+}
 
 /** Lookup by slug. Used by service pages to resolve their `builtFor` joins. */
 export const nicheBySlug = Object.fromEntries(niches.map((n) => [n.slug, n]));
