@@ -28,6 +28,7 @@ import { legalPlaceholders } from '../content/legal.js';
 import { company, unverifiedFigures } from '../content/company.js';
 import { INTENT_LADDER } from '../content/intent.js';
 import { arcGeometry } from '../components/brand/mark-geometry.js';
+import { explainOrigin } from '../lib/origin.js';
 
 const errors = [];
 const warnings = [];
@@ -38,7 +39,9 @@ const warn = (msg) => warnings.push(msg);
 /* ── 1. Service → niche joins ─────────────────────────────────────────── */
 for (const service of services) {
   if (!service.builtFor?.segments?.length) {
-    fail(`service "${service.slug}" has no builtFor segments — the qualify rung would render empty`);
+    fail(
+      `service "${service.slug}" has no builtFor segments — the qualify rung would render empty`,
+    );
     continue;
   }
   for (const segment of service.builtFor.segments) {
@@ -52,7 +55,9 @@ for (const service of services) {
     }
   }
   if (!service.builtFor.notFor?.trim()) {
-    fail(`service "${service.slug}" has no notFor — naming who it is not for is a stated commitment`);
+    fail(
+      `service "${service.slug}" has no notFor — naming who it is not for is a stated commitment`,
+    );
   }
 }
 
@@ -78,10 +83,13 @@ for (const niche of niches) {
     if (!serviceBySlug[slug]) fail(`niche "${niche.slug}" names unknown service "${slug}"`);
   }
   for (const slug of niche.operations) {
-    if (!operationBySlug[slug]) fail(`niche "${niche.slug}" names unknown operation "${slug}"`);
+    if (!operationBySlug[slug])
+      fail(`niche "${niche.slug}" names unknown operation "${slug}"`);
   }
   if (!niche.services.length && !niche.operations.length) {
-    fail(`niche "${niche.slug}" claims no services or operations — its page would be empty`);
+    fail(
+      `niche "${niche.slug}" claims no services or operations — its page would be empty`,
+    );
   }
 }
 
@@ -104,7 +112,11 @@ for (const niche of niches) {
   const detailed = niche.services.filter((slug) =>
     serviceBySlug[slug]?.builtFor?.segments?.some((s) => s.niche === niche.slug),
   );
-  coverage.push({ niche: niche.slug, detailed: detailed.length, claimed: niche.services.length });
+  coverage.push({
+    niche: niche.slug,
+    detailed: detailed.length,
+    claimed: niche.services.length,
+  });
 
   if (detailed.length < MIN_DETAILED) {
     fail(
@@ -118,12 +130,14 @@ for (const niche of niches) {
 /* ── 4. Handoffs and related links ────────────────────────────────────── */
 for (const service of services) {
   const target = service.handoff?.operation;
-  if (!target) fail(`service "${service.slug}" has no handoff — the extend rung would not render`);
+  if (!target)
+    fail(`service "${service.slug}" has no handoff — the extend rung would not render`);
   else if (!operationBySlug[target])
     fail(`service "${service.slug}" hands off to unknown operation "${target}"`);
 
   for (const slug of service.related ?? []) {
-    if (!serviceBySlug[slug]) fail(`service "${service.slug}" relates to unknown service "${slug}"`);
+    if (!serviceBySlug[slug])
+      fail(`service "${service.slug}" relates to unknown service "${slug}"`);
     if (slug === service.slug) fail(`service "${service.slug}" relates to itself`);
   }
 }
@@ -142,7 +156,15 @@ for (const operation of operations) {
 }
 
 /* ── 5. Required shape for every page-rendering section ───────────────── */
-const REQUIRED = ['problem', 'solution', 'mechanism', 'outcomes', 'process', 'faq', 'stack'];
+const REQUIRED = [
+  'problem',
+  'solution',
+  'mechanism',
+  'outcomes',
+  'process',
+  'faq',
+  'stack',
+];
 for (const item of [...services, ...operations]) {
   for (const key of REQUIRED) {
     if (!item[key] || (Array.isArray(item[key]) && item[key].length === 0)) {
@@ -153,7 +175,9 @@ for (const item of [...services, ...operations]) {
     fail(`"${item.slug}" mechanism has no nodes — the bento module would render empty`);
   }
   if (item.faq?.length < 3) {
-    warn(`"${item.slug}" has only ${item.faq.length} FAQ entries — three is the practical minimum for the schema to be useful`);
+    warn(
+      `"${item.slug}" has only ${item.faq.length} FAQ entries — three is the practical minimum for the schema to be useful`,
+    );
   }
   if (!item.headline?.lead) {
     fail(`"${item.slug}" has no headline.lead`);
@@ -175,8 +199,20 @@ for (const service of services) {
 
 /* ── 7. Intent ladder must cover what pages render ────────────────────── */
 const LADDER_IDS = new Set(INTENT_LADDER.map((i) => i.id));
-for (const id of ['orient', 'qualify', 'recognise', 'evaluate', 'understand', 'justify', 'derisk', 'object', 'extend', 'act']) {
-  if (!LADDER_IDS.has(id)) fail(`intent ladder is missing rung "${id}", which pages render`);
+for (const id of [
+  'orient',
+  'qualify',
+  'recognise',
+  'evaluate',
+  'understand',
+  'justify',
+  'derisk',
+  'object',
+  'extend',
+  'act',
+]) {
+  if (!LADDER_IDS.has(id))
+    fail(`intent ladder is missing rung "${id}", which pages render`);
 }
 
 /* Niche display order.
@@ -255,7 +291,9 @@ for (const [label, rel] of OG_ROUTES) {
 
 /* Company identity fields that must be real before launch. */
 if (!company.address?.street || !company.address?.postalCode) {
-  fail('company.address is incomplete — the footer, contact page and JSON-LD all read from it');
+  fail(
+    'company.address is incomplete — the footer, contact page and JSON-LD all read from it',
+  );
 }
 if (!/^https:\/\//.test(company.url)) {
   fail(`company.url must be an absolute https origin, got "${company.url}"`);
@@ -269,36 +307,55 @@ if (!existsSync(join(appRoot, 'api', 'enquiry', 'route.js'))) {
   fail('no /api/enquiry route — the contact form has nowhere to post');
 }
 
-/* Robots must not block the production domain.
+/* Origin resolution — the check that would have caught a live deindex.
  *
- * This check exists because the first version of app/robots.js keyed off a
- * single Vercel-specific variable and would have served `Disallow: /` on any
- * other host — deindexing the live site silently. A gate is cheap; discovering
- * it from a traffic collapse is not. */
+ * `NEXT_PUBLIC_SITE_URL` was declared in the hosting environment with a blank
+ * value. `??` does not fall through on an empty string, so the base URL became
+ * `""`, every sitemap entry became a relative path, and `robots.js` served
+ * `Disallow: /` on the live domain. The build log was clean throughout.
+ *
+ * This reads the same resolver the app uses, so it reports the origin that was
+ * actually resolved rather than re-deriving it and repeating the bug. */
 {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? company.url).replace(/\/+$/, '');
-  const canonical = company.url.replace(/\/+$/, '');
-  const forcedOff = process.env.ROBOTS_DISALLOW === '1';
-  const forcedOn = process.env.ROBOTS_ALLOW === '1';
-  const indexable = forcedOff ? false : forcedOn ? true : siteUrl.toLowerCase() === canonical.toLowerCase();
+  const origin = explainOrigin();
+  const ABSOLUTE_ORIGIN = /^https?:\/\/[^/\s]+$/i;
 
-  if (siteUrl.toLowerCase() === canonical.toLowerCase() && !indexable) {
-    fail(
-      `robots would serve "Disallow: /" while NEXT_PUBLIC_SITE_URL is the canonical origin ` +
-        `(${canonical}). That deindexes the live site.`,
+  if (origin.envBlank) {
+    warn(
+      'NEXT_PUBLIC_SITE_URL is declared but empty. It is ignored and the canonical origin is ' +
+        'used instead — but set it properly or remove it. An empty value is what deindexed ' +
+        'the live site once.',
     );
   }
-  if (!indexable) {
+
+  if (origin.envMalformed) {
+    fail(
+      `NEXT_PUBLIC_SITE_URL is not an absolute origin: "${process.env.NEXT_PUBLIC_SITE_URL}". ` +
+        'It must look like https://www.example.com — scheme, host, no path.',
+    );
+  }
+
+  if (!ABSOLUTE_ORIGIN.test(origin.resolved)) {
+    fail(
+      `resolved origin is not an absolute URL: "${origin.resolved}". The sitemap and robots.txt ` +
+        'both depend on it, and a relative value silently breaks each.',
+    );
+  }
+
+  if (!origin.isCanonical) {
     warn(
-      `robots will serve "Disallow: /" — resolved origin "${siteUrl}" is not the canonical ` +
-        `"${canonical}". Correct for a preview; set NEXT_PUBLIC_SITE_URL=${canonical} for production.`,
+      `robots will serve "Disallow: /" — resolved origin "${origin.resolved}" is not the ` +
+        `canonical "${origin.canonical}". Correct for a preview deployment; set ` +
+        `NEXT_PUBLIC_SITE_URL=${origin.canonical} for production.`,
     );
   }
 }
 
 /* SMTP is required in production; without it the route returns 503. */
 if (process.env.NODE_ENV === 'production' || process.argv.includes('--production')) {
-  const missing = ['SMTP_HOST', 'SMTP_USER', 'SMTP_PASSWORD'].filter((k) => !process.env[k]);
+  const missing = ['SMTP_HOST', 'SMTP_USER', 'SMTP_PASSWORD'].filter(
+    (k) => !process.env[k],
+  );
   if (missing.length) {
     warn(
       `SMTP is not configured (${missing.join(', ')}). The build is fine, but enquiries will ` +
@@ -308,7 +365,8 @@ if (process.env.NODE_ENV === 'production' || process.argv.includes('--production
 }
 
 /* ── 9. Production-only gates ─────────────────────────────────────────── */
-const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--production');
+const isProduction =
+  process.env.NODE_ENV === 'production' || process.argv.includes('--production');
 const allowUnresolved = process.env.ALLOW_UNVERIFIED === '1';
 
 const placeholders = legalPlaceholders();
@@ -356,8 +414,12 @@ for (const w of warnings) console.warn(`  warn  ${w}`);
 for (const e of errors) console.error(`  FAIL  ${e}`);
 
 if (errors.length) {
-  console.error(`\nverify:content failed — ${errors.length} error(s), ${warnings.length} warning(s)`);
+  console.error(
+    `\nverify:content failed — ${errors.length} error(s), ${warnings.length} warning(s)`,
+  );
   process.exit(1);
 }
 
-console.log(`verify:content passed${warnings.length ? ` (${warnings.length} warning(s))` : ''}`);
+console.log(
+  `verify:content passed${warnings.length ? ` (${warnings.length} warning(s))` : ''}`,
+);

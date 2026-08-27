@@ -20,15 +20,11 @@ import { serviceSlugs } from '@/content/services';
 import { operationSlugs } from '@/content/operations';
 import { nicheSlugs } from '@/content/niches';
 import { legalSlugs } from '@/content/legal';
-import { company } from '@/content/company';
+import { resolveOrigin } from '@/lib/origin';
 
-export const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_ENV === 'production'
-    ? company.url
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : company.url);
+/* One resolver, shared with robots.js and the build gate — see lib/origin.js
+   for the production defect that made it a separate, validated module. */
+export const BASE_URL = resolveOrigin();
 
 export default function sitemap() {
   const now = new Date();
