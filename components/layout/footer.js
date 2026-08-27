@@ -68,29 +68,10 @@ export function Footer() {
           ))}
         </nav>
 
-        {/* Contact block. A real postal address is a trust signal for a company
-            that publishes no client logos, and it is what local search reads. */}
+        {/* Contact routes. The postal address is deliberately not repeated here —
+            it lives on /contact and in the Organization JSON-LD, which is what
+            search actually reads. */}
         <div className="grid gap-8 border-t border-paper-edge pt-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="flex flex-col gap-2">
-            <p className="font-mono text-eyebrow uppercase tracking-[0.16em] text-prose-faint">
-              Office
-            </p>
-            <address className="not-italic text-micro leading-relaxed text-prose-soft">
-              <a
-                href={company.address.mapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors hover:text-prose"
-              >
-                {company.address.street}
-                <br />
-                {company.address.locality} {company.address.region} {company.address.postalCode}
-                <br />
-                {company.address.country}
-              </a>
-            </address>
-          </div>
-
           {company.emails.map((route) => (
             <div key={route.key} className="flex flex-col gap-2">
               <p className="font-mono text-eyebrow uppercase tracking-[0.16em] text-prose-faint">
