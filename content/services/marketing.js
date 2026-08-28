@@ -22,10 +22,13 @@ export const marketing = [
     accent: 'magenta',
     eyebrow: 'Digital Marketing',
     title: 'Digital Marketing',
-    headline: { lead: 'More leads is the wrong goal.', accent: 'More answered leads is the goal.' },
+    headline: {
+      lead: 'More leads is the wrong goal.',
+      accent: 'More answered leads is the goal.',
+    },
     summary:
       'Channel strategy and execution that starts from capacity — because demand you cannot answer is spend you have already lost.',
-    metaTitle: 'Digital Marketing — strategy built around capacity | Universal Virtual Support',
+    metaTitle: 'Digital Marketing | Universal Virtual Support',
     metaDescription:
       'Digital marketing strategy and execution across search, social and paid, planned against the capacity to actually answer the demand it creates.',
     keywords: [
@@ -37,7 +40,8 @@ export const marketing = [
     ],
 
     intent: {
-      primary: 'A business owner spending on marketing without a clear view of which spend produced revenue.',
+      primary:
+        'A business owner spending on marketing without a clear view of which spend produced revenue.',
       queries: [
         'which marketing channel is best for my business',
         'why are my leads not converting',
@@ -158,23 +162,43 @@ export const marketing = [
       },
     ],
 
-    stack: ['GA4', 'Google Ads', 'Meta Ads Manager', 'Looker Studio', 'CallRail', 'HubSpot', 'Segment'],
+    stack: [
+      'GA4',
+      'Google Ads',
+      'Meta Ads Manager',
+      'Looker Studio',
+      'CallRail',
+      'HubSpot',
+      'Segment',
+    ],
 
     process: [
       {
         step: 'Capacity audit',
         body: 'What happens to an enquiry today — the route, the hours, the delay. This sets the ceiling on how much demand is worth creating.',
-        artifacts: ['Enquiry flow documented end to end', 'Response time measured, by hour and channel', 'The safe spend ceiling'],
+        artifacts: [
+          'Enquiry flow documented end to end',
+          'Response time measured, by hour and channel',
+          'The safe spend ceiling',
+        ],
       },
       {
         step: 'Measurement repair',
         body: 'Tracking usually needs fixing before anything else is worth doing, or every decision that follows rests on bad data.',
-        artifacts: ['Server-side tracking implemented', 'Call attribution configured', 'A revenue-based reporting view'],
+        artifacts: [
+          'Server-side tracking implemented',
+          'Call attribution configured',
+          'A revenue-based reporting view',
+        ],
       },
       {
         step: 'Channel plan',
         body: 'Which channels, what share, what each is expected to return, and what would falsify that expectation.',
-        artifacts: ['Allocation with reasoning', 'Target return per channel', 'Test plan with holdouts'],
+        artifacts: [
+          'Allocation with reasoning',
+          'Target return per channel',
+          'Test plan with holdouts',
+        ],
       },
       {
         step: 'Execution',
@@ -184,12 +208,20 @@ export const marketing = [
       {
         step: 'Review cadence',
         body: 'A standing session where budget actually moves, rather than a report that is read and filed.',
-        artifacts: ['Reallocation decisions with reasoning', 'Test results', 'The next test'],
+        artifacts: [
+          'Reallocation decisions with reasoning',
+          'Test results',
+          'The next test',
+        ],
       },
       {
         step: 'Ownership',
         body: 'Every account in your name. Ad accounts, analytics, tag manager, call tracking.',
-        artifacts: ['All accounts under your ownership', 'Documented setup', 'Recorded handover'],
+        artifacts: [
+          'All accounts under your ownership',
+          'Documented setup',
+          'Recorded handover',
+        ],
       },
     ],
 
@@ -235,7 +267,7 @@ export const marketing = [
     headline: { lead: 'Ranking is no longer the finish line.', accent: 'Being cited is.' },
     summary:
       'Technical foundations, content that answers real questions, and structure that lets answer engines quote you — because a growing share of searches never produce a click.',
-    metaTitle: 'SEO, AEO & GEO — earn rankings and citations | Universal Virtual Support',
+    metaTitle: 'SEO & AEO Services | Universal Virtual Support',
     metaDescription:
       'Search optimisation for both search engines and answer engines: technical foundations, question-shaped content, structured data and citation-ready sourcing.',
     keywords: [
@@ -247,7 +279,8 @@ export const marketing = [
     ],
 
     intent: {
-      primary: 'A marketing owner watching organic traffic fall while their content investment stays flat.',
+      primary:
+        'A marketing owner watching organic traffic fall while their content investment stays flat.',
       queries: [
         'what is answer engine optimisation',
         'how to rank in AI search results',
@@ -395,28 +428,51 @@ export const marketing = [
       },
     ],
 
-    stack: ['Google Search Console', 'Screaming Frog', 'Ahrefs', 'Schema.org', 'GA4', 'Looker Studio'],
+    stack: [
+      'Google Search Console',
+      'Screaming Frog',
+      'Ahrefs',
+      'Schema.org',
+      'GA4',
+      'Looker Studio',
+    ],
 
     process: [
       {
         step: 'Technical audit',
         body: 'Crawl, render, speed, structured data, sitemap accuracy, indexation. The ceiling is found before anything is built under it.',
-        artifacts: ['Prioritised technical findings', 'Render comparison, JavaScript on and off', 'Indexation and crawl report'],
+        artifacts: [
+          'Prioritised technical findings',
+          'Render comparison, JavaScript on and off',
+          'Indexation and crawl report',
+        ],
       },
       {
         step: 'Question research',
         body: 'What people actually ask — from search data, from your support queue, and from what assistants currently answer badly.',
-        artifacts: ['Question inventory by intent stage', 'Current answer quality per question', 'Gap analysis against competitors'],
+        artifacts: [
+          'Question inventory by intent stage',
+          'Current answer quality per question',
+          'Gap analysis against competitors',
+        ],
       },
       {
         step: 'Structure',
         body: 'Site architecture, internal linking and schema, so authority flows to the pages that should have it.',
-        artifacts: ['Information architecture', 'Internal linking plan', 'Structured data specification'],
+        artifacts: [
+          'Information architecture',
+          'Internal linking plan',
+          'Structured data specification',
+        ],
       },
       {
         step: 'Content build',
         body: 'Pages written to answer directly, structured for extraction, sourced so a claim can be attributed.',
-        artifacts: ['Published pages', 'Schema live and validating', 'Answer-format verification'],
+        artifacts: [
+          'Published pages',
+          'Schema live and validating',
+          'Answer-format verification',
+        ],
       },
       {
         step: 'Off-site',
@@ -469,10 +525,13 @@ export const marketing = [
     accent: 'amber',
     eyebrow: 'Google Ads',
     title: 'Google Ads',
-    headline: { lead: 'Search advertising buys intent.', accent: 'Nothing else on the internet does.' },
+    headline: {
+      lead: 'Search advertising buys intent.',
+      accent: 'Nothing else on the internet does.',
+    },
     summary:
       'Campaigns built to capture demand that already exists — measured against booked revenue rather than against the platform’s account of itself.',
-    metaTitle: 'Google Ads Management — measured on revenue | Universal Virtual Support',
+    metaTitle: 'Google Ads Management | Universal Virtual Support',
     metaDescription:
       'Google Ads management for businesses that need measurable return: intent-led structure, negative keyword discipline, call tracking and revenue-based reporting.',
     keywords: [
@@ -484,7 +543,8 @@ export const marketing = [
     ],
 
     intent: {
-      primary: 'A business spending on Google Ads that suspects a meaningful share of it is wasted and cannot prove which share.',
+      primary:
+        'A business spending on Google Ads that suspects a meaningful share of it is wasted and cannot prove which share.',
       queries: [
         'why is my Google Ads cost per lead so high',
         'Google Ads management for contractors',
@@ -494,7 +554,8 @@ export const marketing = [
     },
 
     builtFor: {
-      headline: 'Built for businesses where someone is already searching for what you sell.',
+      headline:
+        'Built for businesses where someone is already searching for what you sell.',
       intro:
         'Paid search works when demand exists and you are buying the moment of it. Where nobody is searching, it is the most expensive way to discover that.',
       segments: [
@@ -614,38 +675,69 @@ export const marketing = [
       },
     ],
 
-    stack: ['Google Ads', 'Google Tag Manager', 'GA4', 'CallRail', 'Looker Studio', 'Google Merchant Center'],
+    stack: [
+      'Google Ads',
+      'Google Tag Manager',
+      'GA4',
+      'CallRail',
+      'Looker Studio',
+      'Google Merchant Center',
+    ],
 
     process: [
       {
         step: 'Account audit',
         body: 'Structure, search terms, conversion accuracy, wasted spend. Usually the conversion tracking is wrong, which invalidates every historical judgement made from it.',
-        artifacts: ['Wasted spend quantified', 'Conversion tracking verified or corrected', 'Structural findings'],
+        artifacts: [
+          'Wasted spend quantified',
+          'Conversion tracking verified or corrected',
+          'Structural findings',
+        ],
       },
       {
         step: 'Measurement build',
         body: 'Call tracking, offline conversion import and value passing, so the platform learns from revenue.',
-        artifacts: ['Call tracking live', 'Offline conversions importing', 'Conversion values passing'],
+        artifacts: [
+          'Call tracking live',
+          'Offline conversions importing',
+          'Conversion values passing',
+        ],
       },
       {
         step: 'Restructure',
         body: 'Campaigns split by intent and by margin, with negative lists built from the audit.',
-        artifacts: ['New campaign structure', 'Negative keyword lists', 'Bid strategy per campaign'],
+        artifacts: [
+          'New campaign structure',
+          'Negative keyword lists',
+          'Bid strategy per campaign',
+        ],
       },
       {
         step: 'Landing alignment',
         body: 'Each intent gets a page that matches it, held to the same performance budget as the rest of the site.',
-        artifacts: ['Landing pages built or fixed', 'Page speed verified', 'Conversion paths tested'],
+        artifacts: [
+          'Landing pages built or fixed',
+          'Page speed verified',
+          'Conversion paths tested',
+        ],
       },
       {
         step: 'Managed run',
         body: 'Search term review, bid adjustment and creative testing on a schedule, with the reasoning written down.',
-        artifacts: ['Weekly search term review', 'Test log with results', 'Monthly revenue reporting'],
+        artifacts: [
+          'Weekly search term review',
+          'Test log with results',
+          'Monthly revenue reporting',
+        ],
       },
       {
         step: 'Ownership',
         body: 'The ad account, the tags and the tracking stay yours throughout.',
-        artifacts: ['Accounts in your ownership', 'Documented configuration', 'Recorded handover'],
+        artifacts: [
+          'Accounts in your ownership',
+          'Documented configuration',
+          'Recorded handover',
+        ],
       },
     ],
 
@@ -688,10 +780,13 @@ export const marketing = [
     accent: 'deep',
     eyebrow: 'Meta Ads',
     title: 'Meta Ads',
-    headline: { lead: 'Nobody opens Instagram to buy.', accent: 'That is the whole problem to solve.' },
+    headline: {
+      lead: 'Nobody opens Instagram to buy.',
+      accent: 'That is the whole problem to solve.',
+    },
     summary:
       'Paid social built for demand creation — creative volume as the main lever, tested against incremental revenue rather than platform-attributed conversions.',
-    metaTitle: 'Meta Ads — demand creation, measured honestly | Universal Virtual Support',
+    metaTitle: 'Meta Ads Management | Universal Virtual Support',
     metaDescription:
       'Facebook and Instagram advertising built around creative volume and incrementality testing, for businesses creating demand rather than capturing it.',
     keywords: [
@@ -703,7 +798,8 @@ export const marketing = [
     ],
 
     intent: {
-      primary: 'A brand whose Meta results decayed and who cannot tell whether the platform’s reported ROAS is real.',
+      primary:
+        'A brand whose Meta results decayed and who cannot tell whether the platform’s reported ROAS is real.',
       queries: [
         'why did my Facebook ads stop working',
         'is Facebook ROAS accurate',
@@ -833,18 +929,33 @@ export const marketing = [
       },
     ],
 
-    stack: ['Meta Ads Manager', 'Meta Conversions API', 'GA4', 'Looker Studio', 'Figma', 'Segment'],
+    stack: [
+      'Meta Ads Manager',
+      'Meta Conversions API',
+      'GA4',
+      'Looker Studio',
+      'Figma',
+      'Segment',
+    ],
 
     process: [
       {
         step: 'Signal audit',
         body: 'Conversions API, event quality and value passing. Optimisation is downstream of signal, so this comes before anything creative.',
-        artifacts: ['Event quality assessment', 'Server-side tracking implemented', 'Value passing verified'],
+        artifacts: [
+          'Event quality assessment',
+          'Server-side tracking implemented',
+          'Value passing verified',
+        ],
       },
       {
         step: 'Creative teardown',
         body: 'What has run, what worked, and what the winners had in common. The pattern is usually in the hook, not the production value.',
-        artifacts: ['Historical performance by concept and hook', 'Fatigue curves', 'The pattern behind the winners'],
+        artifacts: [
+          'Historical performance by concept and hook',
+          'Fatigue curves',
+          'The pattern behind the winners',
+        ],
       },
       {
         step: 'Production system',
@@ -864,7 +975,11 @@ export const marketing = [
       {
         step: 'Managed run',
         body: 'Continuous testing, scaling and reporting against incremental revenue.',
-        artifacts: ['Monthly test log', 'Creative pipeline running', 'Incremental reporting'],
+        artifacts: [
+          'Monthly test log',
+          'Creative pipeline running',
+          'Incremental reporting',
+        ],
       },
     ],
 

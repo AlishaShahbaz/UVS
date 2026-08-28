@@ -29,6 +29,8 @@ import {
 import { IntentSection } from '@/components/sections/intent-section';
 import { HandoffFigure } from '@/components/sections/handoff-figure';
 import { HeroField } from '@/components/bento/hero-field';
+import { CompliancePosture } from '@/components/sections/compliance-posture';
+import { areaServed } from '@/lib/schema';
 import { spell } from '@/lib/words';
 
 export const metadata = {
@@ -71,6 +73,7 @@ export default function HomePage() {
       /* Corroborates that this domain and these profiles are one entity — the
          cheapest identity signal available to a company with no client logos. */
       sameAs: company.socials.map((s) => s.href),
+      areaServed,
       knowsAbout: niches.map((n) => n.label),
       makesOffer: services.map((s) => ({
         '@type': 'Offer',
@@ -302,6 +305,12 @@ export default function HomePage() {
           </div>
         </Container>
       </Section>
+
+      {/* ── DERISK — the regimes the desks are worked to. Sits directly
+             after Run because it is the first question a regulated buyer has
+             about a staffed desk, and before Build because it qualifies the
+             desks rather than the systems. ─────────────────────────────── */}
+      <CompliancePosture />
 
       {/* ── EVALUATE — Build. Second, and framed as what makes the desk
              cheaper to run rather than as a separate product line. ───────── */}

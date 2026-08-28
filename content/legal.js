@@ -51,11 +51,11 @@ export const legal = [
       },
       {
         heading: 'Who else sees it',
-        body: 'A small number of processors that we could not operate without — hosting, email, and the CRM we use to track conversations. Each is bound by contract and processes data only on our instructions. A current list is available on request at [PRIVACY_CONTACT].',
+        body: 'A small number of processors that we could not operate without — hosting, email, and the CRM we use to track conversations. Each is bound by contract and processes data only on our instructions. A current list is available on request at admin@universalvirtualsupport.com.',
       },
       {
         heading: 'Your rights',
-        body: 'You can ask what we hold about you, ask for it to be corrected or deleted, object to how we use it, or ask for a copy in a portable format. Write to [PRIVACY_CONTACT] and we will respond within one month. If you are unhappy with our response you can complain to the relevant supervisory authority.',
+        body: 'You can ask what we hold about you, ask for it to be corrected or deleted, object to how we use it, or ask for a copy in a portable format. Write to admin@universalvirtualsupport.com and we will respond within one month. If you are unhappy with our response you can complain to the relevant supervisory authority.',
       },
       {
         heading: 'Changes',
@@ -158,7 +158,7 @@ export const legal = [
       },
       {
         heading: 'Tell us',
-        body: 'If something here is difficult or impossible to use, email [ACCESSIBILITY_CONTACT] with the page and what happened. We treat accessibility reports as defects, not as feedback — they go into the same queue as any other bug.',
+        body: 'If something here is difficult or impossible to use, email admin@universalvirtualsupport.com with the page and what happened. We treat accessibility reports as defects, not as feedback — they go into the same queue as any other bug.',
       },
     ],
   },
@@ -186,7 +186,7 @@ export const legal = [
       },
       {
         heading: 'Reporting a vulnerability',
-        body: 'Email [SECURITY_CONTACT] with enough detail to reproduce it. We will acknowledge within two business days and keep you updated until it is resolved. We will not pursue anyone who reports a genuine issue in good faith and does not access or destroy data in the process.',
+        body: 'Email admin@universalvirtualsupport.com with SECURITY in the subject line and enough detail to reproduce it. We will acknowledge within two business days and keep you updated until it is resolved. We will not pursue anyone who reports a genuine issue in good faith and does not access or destroy data in the process.',
       },
     ],
   },

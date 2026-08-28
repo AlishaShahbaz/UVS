@@ -15,7 +15,8 @@
     "verify:content": "node scripts/verify-content.mjs",
     "verify:contrast": "node scripts/verify-contrast.mjs",
     "verify": "npm run verify:content && npm run verify:contrast",
-    "check": "npm run verify && npm run lint && npm run build"
+    "check": "npm run verify && npm run lint && npm run build",
+    "verify:links": "node scripts/verify-links.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

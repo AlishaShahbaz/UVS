@@ -23,10 +23,12 @@ import {
   nicheBySlug,
   DISPLAY_ORDER as nicheOrder,
   orphanedOrderSlugs,
+  nichePlaceholders,
 } from '../content/niches.js';
-import { legalPlaceholders } from '../content/legal.js';
+import { legal as legalPages, legalPlaceholders } from '../content/legal.js';
 import { company, unverifiedFigures } from '../content/company.js';
 import { INTENT_LADDER } from '../content/intent.js';
+import { compliancePosture } from '../content/compliance.js';
 import { arcGeometry } from '../components/brand/mark-geometry.js';
 import { explainOrigin } from '../lib/origin.js';
 
@@ -181,6 +183,36 @@ for (const item of [...services, ...operations]) {
   }
   if (!item.headline?.lead) {
     fail(`"${item.slug}" has no headline.lead`);
+  }
+}
+
+/* Title and description length.
+ *
+ * Google truncates a title around 60 characters and a description around 160.
+ * Both shipped over: every service and desk page carried a metaTitle that
+ * already contained the brand, and the layout template appended it a second
+ * time — producing a 95-character title whose visible half was duplicated
+ * branding.
+ *
+ * These are warnings rather than failures because the cut-off is soft and
+ * varies by device. Silently drifting past it is the thing to prevent. */
+const TITLE_MAX = 60;
+const DESC_MAX = 160;
+
+for (const item of [...services, ...operations]) {
+  const title = item.metaTitle ?? '';
+  const desc = item.metaDescription ?? '';
+
+  if (title.length > TITLE_MAX) {
+    warn(
+      `"${item.slug}" metaTitle is ${title.length} chars (target ${TITLE_MAX}); Google will truncate it.`,
+    );
+  }
+  if (desc.length > DESC_MAX) {
+    warn(`"${item.slug}" metaDescription is ${desc.length} chars (target ${DESC_MAX}).`);
+  }
+  if (title.toLowerCase().split(company.name.toLowerCase()).length > 2) {
+    fail(`"${item.slug}" metaTitle contains the company name twice.`);
   }
 }
 
@@ -364,16 +396,94 @@ if (process.env.NODE_ENV === 'production' || process.argv.includes('--production
   }
 }
 
+
+/* ── 8.5 Regulatory-claim gate ────────────────────────────────────────── */
+/**
+ * Certain sentences are not marketing copy and must never be written casually.
+ *
+ * "ACPR compliant" is the clearest example. The ACPR authorises banks, payment
+ * institutions and insurers — it does not authorise their vendors, so no
+ * outsourcing provider can hold that status. The same is true of PSD2, MiCA and
+ * the AML directives: they bind the regulated firm, and there is no general
+ * GDPR certificate a processor can hold either. Writing any of it would be a
+ * claim we could not evidence, which breaks commitment 06 on the About page.
+ *
+ * ISO 27001, SOC 2 and PCI DSS are different — they are real, holdable
+ * certificates. They are gated because naming one without saying whether we
+ * hold it reads as a claim to the person skimming, and that is precisely the
+ * reader this copy exists for.
+ *
+ * ## Why it walks the exported objects rather than the files
+ *
+ * Doc comments discuss these terms at length — this one does. Walking the
+ * exports means the gate sees only strings that can reach a page, so a comment
+ * explaining the rule cannot trip the rule.
+ */
+const CLAIM_RULES = [
+  {
+    id: 'regime-compliant',
+    // "GDPR compliant", "ACPR-compliant", "compliant with PSD2"
+    test: /(?:\b(?:ACPR|PSD2|MiCA|AMLD[56]?|DORA|EBA|GDPR|FCA|AUSTRAC)\b[\s-]*complian|complian\w*\s+with\s+(?:the\s+)?\b(?:ACPR|PSD2|MiCA|AMLD[56]?|DORA|EBA|GDPR|FCA|AUSTRAC)\b)/i,
+    why: 'these regimes bind the regulated firm, not its vendor — describe the contract terms instead',
+  },
+  {
+    id: 'certification',
+    test: /\b(?:ISO[\s-]?27001|SOC\s?2|PCI[\s-]?DSS)\b/i,
+    why: 'name a certificate only where the copy states plainly whether we hold it',
+  },
+];
+
+/* A negation immediately before the match is the one legitimate use: copy that
+   exists to tell the reader the claim is impossible. Kept narrow on purpose. */
+const NEGATED = /\b(?:no|not|never|cannot|can't|nobody|neither)\b[^.]{0,60}$/i;
+
+const seenStrings = new Set();
+function walkStrings(value, path, visit) {
+  if (typeof value === 'string') return visit(value, path);
+  if (Array.isArray(value)) {
+    value.forEach((v, i) => walkStrings(v, `${path}[${i}]`, visit));
+    return;
+  }
+  if (value && typeof value === 'object') {
+    if (seenStrings.has(value)) return;
+    seenStrings.add(value);
+    for (const [k, v] of Object.entries(value)) walkStrings(v, `${path}.${k}`, visit);
+  }
+}
+
+const claimHits = [];
+for (const [label, corpus] of [
+  ['services', services],
+  ['operations', operations],
+  ['niches', niches],
+  ['company', company],
+  ['legal', legalPages],
+  ['compliance', compliancePosture],
+]) {
+  walkStrings(corpus, label, (text, path) => {
+    for (const rule of CLAIM_RULES) {
+      const match = rule.test.exec(text);
+      if (!match) continue;
+      if (NEGATED.test(text.slice(0, match.index))) continue;
+      claimHits.push({ path, rule: rule.id, why: rule.why, quote: text.slice(Math.max(0, match.index - 40), match.index + 60).trim() });
+    }
+  });
+}
+
+for (const hit of claimHits) {
+  fail(`unevidenced compliance claim (${hit.rule}) at ${hit.path} — ${hit.why}\n          …${hit.quote}…`);
+}
+
 /* ── 9. Production-only gates ─────────────────────────────────────────── */
 const isProduction =
   process.env.NODE_ENV === 'production' || process.argv.includes('--production');
 const allowUnresolved = process.env.ALLOW_UNVERIFIED === '1';
 
-const placeholders = legalPlaceholders();
+const placeholders = [...legalPlaceholders(), ...nichePlaceholders()];
 const unverified = unverifiedFigures();
 
 if (placeholders.length) {
-  const msg = `${placeholders.length} unresolved legal placeholder(s): ${placeholders
+  const msg = `${placeholders.length} unresolved copy placeholder(s): ${placeholders
     .map((p) => `${p.page}/${p.token}`)
     .join(', ')}`;
   if (isProduction && !allowUnresolved) fail(msg);

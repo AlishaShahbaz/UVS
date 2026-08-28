@@ -27,12 +27,15 @@ export const complianceOperations = [
     accent: 'deep',
     eyebrow: 'KYC & Onboarding',
     title: 'KYC & Onboarding',
-    headline: { lead: 'The user who waits two days', accent: 'funds an account somewhere else.' },
+    headline: {
+      lead: 'The user who waits two days',
+      accent: 'funds an account somewhere else.',
+    },
     summary:
       'Trained reviewers on your verification and document queues, worked to a defined SLA, with every decision recorded against the policy version it was made under.',
-    metaTitle: 'KYC & Onboarding Support — verification queues, staffed | Universal Virtual Support',
+    metaTitle: 'KYC & Onboarding Support | Universal Virtual Support',
     metaDescription:
-      'Outsourced KYC and onboarding operations: document review, identity verification and EDD queues worked to a defined SLA by trained reviewers, with a full audit trail.',
+      'Outsourced KYC and onboarding: document review, identity verification and EDD queues worked to a defined SLA by trained reviewers, with a full audit trail.',
     keywords: [
       'outsourced KYC operations',
       'KYC document review service',
@@ -53,7 +56,8 @@ export const complianceOperations = [
     },
 
     builtFor: {
-      headline: 'Built for businesses where onboarding is the first thing a customer experiences.',
+      headline:
+        'Built for businesses where onboarding is the first thing a customer experiences.',
       intro:
         'Verification is the one queue where the cost of being slow and the cost of being wrong both fall on you at once. These are the businesses where that tension is sharpest.',
       segments: [
@@ -188,22 +192,38 @@ export const complianceOperations = [
       {
         step: 'Integration',
         body: 'Your verification provider, your case system, your record store. We work in your tools so the audit trail lives where your auditor already looks.',
-        artifacts: ['Provider and case system access', 'Write-back configured', 'Data handling agreed to your residency requirements'],
+        artifacts: [
+          'Provider and case system access',
+          'Write-back configured',
+          'Data handling agreed to your residency requirements',
+        ],
       },
       {
         step: 'Reviewer training',
         body: 'Your policy, your case types, your edge cases — assessed before anyone touches a live case.',
-        artifacts: ['Trained reviewer pool', 'Assessment results per reviewer', 'QA rubric'],
+        artifacts: [
+          'Trained reviewer pool',
+          'Assessment results per reviewer',
+          'QA rubric',
+        ],
       },
       {
         step: 'Parallel run',
         body: 'Our decisions run alongside yours and the two are compared. It is the only honest way to establish that the standard transferred.',
-        artifacts: ['Agreement rate against your current team', 'Disagreements analysed by cause', 'Standard corrected where it was ambiguous'],
+        artifacts: [
+          'Agreement rate against your current team',
+          'Disagreements analysed by cause',
+          'Standard corrected where it was ambiguous',
+        ],
       },
       {
         step: 'Run',
         body: 'Full volume with daily SLA reporting, sampled QA, and a standing review where the standard actually changes.',
-        artifacts: ['Daily SLA report', 'Weekly QA agreement rate', 'Monthly standard review'],
+        artifacts: [
+          'Daily SLA report',
+          'Weekly QA agreement rate',
+          'Monthly standard review',
+        ],
       },
     ],
 
@@ -249,9 +269,9 @@ export const complianceOperations = [
     headline: { lead: 'An alert nobody worked', accent: 'is worse than no alert at all.' },
     summary:
       'Staffed alert review, account investigations and back-office risk operations — worked to an SLA, with the reasoning recorded on every disposition.',
-    metaTitle: 'Transaction & Risk Monitoring Support | Universal Virtual Support',
+    metaTitle: 'Transaction Monitoring | Universal Virtual Support',
     metaDescription:
-      'Outsourced transaction monitoring operations: alert triage, account reviews and investigation queues worked by trained analysts to a defined SLA with full audit trails.',
+      'Outsourced transaction monitoring: alert triage, account reviews and investigation queues worked by trained analysts to a defined SLA, fully audited.',
     keywords: [
       'outsourced transaction monitoring',
       'alert review team',
@@ -389,32 +409,56 @@ export const complianceOperations = [
       {
         step: 'Queue audit',
         body: 'Alert volume by rule, clear rate, current SLA and where the backlog actually sits. The clear rate per rule is usually the most useful number nobody is looking at.',
-        artifacts: ['Volume and clear rate by rule', 'Backlog age profile', 'Current disposition quality assessed'],
+        artifacts: [
+          'Volume and clear rate by rule',
+          'Backlog age profile',
+          'Current disposition quality assessed',
+        ],
       },
       {
         step: 'Triage design',
         body: 'How alerts are classified on arrival, what depth each class gets, and the SLA per class.',
-        artifacts: ['Triage classification', 'Investigation depth per class', 'SLA per class'],
+        artifacts: [
+          'Triage classification',
+          'Investigation depth per class',
+          'SLA per class',
+        ],
       },
       {
         step: 'Standard and escalation',
         body: 'What a sufficient investigation looks like, and the written conditions that send a case to your compliance team.',
-        artifacts: ['Investigation standard, versioned', 'Escalation conditions agreed with your compliance function', 'Disposition template'],
+        artifacts: [
+          'Investigation standard, versioned',
+          'Escalation conditions agreed with your compliance function',
+          'Disposition template',
+        ],
       },
       {
         step: 'Analyst training',
         body: 'Your product, your typologies, your customer base. Assessed on historical alerts before touching the live queue.',
-        artifacts: ['Trained analyst pool', 'Assessment against historical dispositions', 'QA rubric'],
+        artifacts: [
+          'Trained analyst pool',
+          'Assessment against historical dispositions',
+          'QA rubric',
+        ],
       },
       {
         step: 'Parallel run',
         body: 'Our dispositions compared against yours on the same alerts, with disagreements analysed rather than averaged.',
-        artifacts: ['Agreement rate', 'Disagreements analysed by cause', 'Standard corrected where ambiguous'],
+        artifacts: [
+          'Agreement rate',
+          'Disagreements analysed by cause',
+          'Standard corrected where ambiguous',
+        ],
       },
       {
         step: 'Run',
         body: 'Full queue with daily SLA reporting, sampled QA, and a monthly false-positive report by rule.',
-        artifacts: ['Daily SLA report', 'Weekly QA sampling', 'Monthly tuning report by rule'],
+        artifacts: [
+          'Daily SLA report',
+          'Weekly QA sampling',
+          'Monthly tuning report by rule',
+        ],
       },
     ],
 

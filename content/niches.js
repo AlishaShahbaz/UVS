@@ -144,6 +144,74 @@ const nicheEntries = [
       'email-support',
       'data-entry',
     ],
+
+    /**
+     * THE VENDOR-DUE-DILIGENCE BLOCK.
+     *
+     * ## Why this is written as contract terms and not as a compliance badge
+     *
+     * The obvious move on a fintech page is "ACPR compliant" or "GDPR
+     * compliant". Both are meaningless and both are actively damaging.
+     *
+     * ACPR authorises banks, payment institutions and insurers. It does not
+     * authorise their vendors, so no BPO can be "ACPR compliant" — the phrase
+     * is a category error, in the same way an accounting firm cannot be "SEC
+     * compliant". GDPR has no general certificate either; "GDPR compliant" is a
+     * self-assessed adjective. An operations lead at a supervised firm reads
+     * both as evidence that the vendor does not understand the regime, which is
+     * the opposite of what the line was written to achieve.
+     *
+     * And on this site specifically it would break commitment 06 — every figure
+     * we publish is one we can evidence — which is the strongest thing we have.
+     *
+     * So this block describes what a supervised client can actually verify: the
+     * contractual position, the processing locations, and the clauses their own
+     * regulator requires them to hold with any ICT third party. Terms are
+     * checkable. Badges are not.
+     *
+     * ## The two placeholders are deliberate
+     *
+     * Processing location and certification status are facts only the operator
+     * can supply, and both change what may honestly be written. They use the
+     * same `[TOKEN]` mechanism as the legal pages: they render visibly, and
+     * `verify:content` fails a production build while either remains. This copy
+     * cannot reach a live site by being forgotten.
+     *
+     * ## Not legal advice
+     *
+     * These are contract and privacy statements. They need review by a
+     * qualified EU data-protection adviser before publication — particularly
+     * the transfer wording — and the underlying documents have to exist before
+     * the claims are true.
+     */
+    dueDiligence: {
+      headline: { lead: 'What a regulated client', accent: 'actually needs from us.' },
+      intro:
+        'We are not a regulated entity and we do not hold your licence — your obligations under supervision stay yours. Our job is to be a vendor you can put in your outsourcing register without a fight.',
+      points: [
+        {
+          title: 'Processor, not controller',
+          body: 'We handle personal data under Article 28 as your processor, on your DPA and your documented instructions. Sub-processors are listed and disclosed before they are used, never after.',
+        },
+        {
+          title: 'Where your data sits',
+          body: 'Agents work inside your systems under role-based access scoped to the queue they are on — we do not export customer records to ours, so there is no shadow copy of your data for anyone to ask about. Personal data is processed from Pakistan and Australia. Neither holds an EU adequacy decision, so those transfers rest on Standard Contractual Clauses with a transfer impact assessment on file. We would rather you heard that from us on this page than found it in week three of a questionnaire, and we share both documents during due diligence rather than after signature.',
+        },
+        {
+          title: 'Terms that survive an audit',
+          body: 'Audit and access rights for you and for your regulator, notice before any sub-outsourcing, breach notification without undue delay, and a written exit plan — the clauses the EBA outsourcing guidelines and DORA Article 30 require you to hold with any ICT third party.',
+        },
+        {
+          title: 'Reconstructable decisions',
+          body: 'Every onboarding approval, escalation and alert disposition is recorded against the policy version it was made under, with the evidence the reviewer actually saw. The disposition is always a person’s.',
+        },
+      ],
+      notYet: {
+        title: 'What we do not have yet',
+        body: 'We do not hold ISO 27001 or SOC 2, and we will not dress up something adjacent to look like one. If a certificate is a hard requirement for this engagement, say so on the first call and we will tell you honestly whether to wait for us or go elsewhere. Otherwise we will show you our controls, our access logs and our sub-processor list instead — and tell you plainly which lines of your questionnaire we cannot answer.',
+      },
+      note: 'This describes contractual position, not certification. No vendor can be “ACPR compliant” — that supervision applies to you, not to us — and there is no general GDPR certificate to hold. Ask us for the documents; they are the only thing worth checking.',
+    },
   },
   {
     slug: 'financial-services',
@@ -331,4 +399,33 @@ export function nichesForService(serviceSlug) {
 
 export function nichesForOperation(operationSlug) {
   return niches.filter((n) => n.operations.includes(operationSlug));
+}
+
+/**
+ * Unresolved `[TOKEN]` markers inside a niche's due-diligence block.
+ *
+ * The legal pages already have their own scanner. This one exists because the
+ * due-diligence copy makes contractual statements — where data is processed,
+ * which certifications are held — and those are exactly the sentences that must
+ * never reach production half-written. Same gate, same production failure.
+ */
+export function nichePlaceholders() {
+  const found = [];
+  for (const niche of niches) {
+    const dd = niche.dueDiligence;
+    if (!dd) continue;
+    const fields = [
+      ['intro', dd.intro],
+      ['note', dd.note],
+      ...(dd.points ?? []).map((p) => [p.title, p.body]),
+      ...(dd.notYet ? [[dd.notYet.title, dd.notYet.body]] : []),
+    ];
+    for (const [heading, text] of fields) {
+      if (typeof text !== 'string') continue;
+      for (const match of text.matchAll(/\[([A-Z_]+)\]/g)) {
+        found.push({ page: `industries/${niche.slug}`, heading, token: match[1] });
+      }
+    }
+  }
+  return found;
 }

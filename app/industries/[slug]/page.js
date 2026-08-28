@@ -19,9 +19,19 @@ import { nicheBySlug, nicheSlugs } from '@/content/niches';
 import { servicesForNiche } from '@/content/services';
 import { operationBySlug } from '@/content/operations';
 import { company } from '@/content/company';
-import { Container, Eyebrow, Headline, Lead, Section, Button, Badge } from '@/design-system';
+import { breadcrumbSchema } from '@/lib/schema';
+import {
+  Container,
+  Eyebrow,
+  Headline,
+  Lead,
+  Section,
+  Button,
+  Badge,
+} from '@/design-system';
 import { IntentSection } from '@/components/sections/intent-section';
 import { HeroField } from '@/components/bento/hero-field';
+import { DueDiligence } from '@/components/sections/due-diligence';
 
 export function generateStaticParams() {
   return nicheSlugs.map((slug) => ({ slug }));
@@ -46,7 +56,9 @@ export default async function IndustryPage({ params }) {
   if (!niche) notFound();
 
   const services = servicesForNiche(niche);
-  const operations = (niche.operations ?? []).map((s) => operationBySlug[s]).filter(Boolean);
+  const operations = (niche.operations ?? [])
+    .map((s) => operationBySlug[s])
+    .filter(Boolean);
 
   /* Pull the service-specific writing back out for this niche, so the page can
      show what each service actually said about this business type rather than
@@ -58,19 +70,25 @@ export default async function IndustryPage({ params }) {
     })
     .filter(Boolean);
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: `${niche.label} — ${company.name}`,
-    description: niche.who,
-    url: `${company.url}/industries/${niche.slug}`,
-    about: { '@type': 'Audience', audienceType: niche.label },
-    hasPart: services.map((s) => ({
-      '@type': 'Service',
-      name: s.title,
-      url: `${company.url}/services/${s.slug}`,
-    })),
-  };
+  const jsonLd = [
+    breadcrumbSchema([
+      { name: 'Industries', path: '/industries' },
+      { name: niche.label, path: `/industries/${niche.slug}` },
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: `${niche.label} — ${company.name}`,
+      description: niche.who,
+      url: `${company.url}/industries/${niche.slug}`,
+      about: { '@type': 'Audience', audienceType: niche.label },
+      hasPart: services.map((s) => ({
+        '@type': 'Service',
+        name: s.title,
+        url: `${company.url}/services/${s.slug}`,
+      })),
+    },
+  ];
 
   return (
     <div data-accent={niche.accent}>
@@ -80,7 +98,7 @@ export default async function IndustryPage({ params }) {
       />
 
       {/* ORIENT */}
-      <Section register="ink" size="loose" overlap className="border-b border-ink-edge">
+      <Section register="ink" size="loose" overlap className="border-ink-edge border-b">
         <HeroField />
         <Container className="relative">
           <div className="grid gap-12 lg:grid-cols-[1.35fr_1fr] lg:items-end">
@@ -89,7 +107,11 @@ export default async function IndustryPage({ params }) {
                 <Eyebrow>Industry</Eyebrow>
                 <Badge>{services.length + operations.length} offerings apply</Badge>
               </div>
-              <Headline level={1} headline={{ lead: niche.label }} className="max-w-[14ch]" />
+              <Headline
+                level={1}
+                headline={{ lead: niche.label }}
+                className="max-w-[14ch]"
+              />
               <Lead className="text-prose-inv-soft">{niche.who}</Lead>
               <div className="flex flex-wrap gap-3 pt-2">
                 <Button href="/contact" variant="accent">
@@ -105,10 +127,10 @@ export default async function IndustryPage({ params }) {
                 also earns the space the old hero left empty. */}
             <div
               id="built-for"
-              className="flex flex-col gap-5 border-t border-paper-edge pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0"
+              className="border-paper-edge flex flex-col gap-5 border-t pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10"
             >
               <div className="flex flex-col gap-3">
-                <p className="font-mono text-eyebrow uppercase tracking-[0.16em] text-prose-faint">
+                <p className="text-eyebrow text-prose-faint font-mono tracking-[0.16em] uppercase">
                   Desks that apply
                 </p>
                 <ul className="flex flex-wrap gap-x-4 gap-y-1.5">
@@ -116,7 +138,7 @@ export default async function IndustryPage({ params }) {
                     <li key={operation.slug}>
                       <Link
                         href={`/operations/${operation.slug}`}
-                        className="font-mono text-micro text-prose-inv-soft underline decoration-ink-edge underline-offset-4 transition-colors hover:text-[var(--accent)] hover:decoration-[var(--accent)]"
+                        className="text-micro text-prose-inv-soft decoration-ink-edge font-mono underline underline-offset-4 transition-colors hover:text-[var(--accent)] hover:decoration-[var(--accent)]"
                       >
                         {operation.title}
                       </Link>
@@ -126,7 +148,7 @@ export default async function IndustryPage({ params }) {
               </div>
 
               <div className="flex flex-col gap-3">
-                <p className="font-mono text-eyebrow uppercase tracking-[0.16em] text-prose-faint">
+                <p className="text-eyebrow text-prose-faint font-mono tracking-[0.16em] uppercase">
                   Systems that apply
                 </p>
                 <ul className="flex flex-wrap gap-x-4 gap-y-1.5">
@@ -134,7 +156,7 @@ export default async function IndustryPage({ params }) {
                     <li key={service.slug}>
                       <Link
                         href={`/services/${service.slug}`}
-                        className="font-mono text-micro text-prose-inv-soft underline decoration-ink-edge underline-offset-4 transition-colors hover:text-[var(--accent)] hover:decoration-[var(--accent)]"
+                        className="text-micro text-prose-inv-soft decoration-ink-edge font-mono underline underline-offset-4 transition-colors hover:text-[var(--accent)] hover:decoration-[var(--accent)]"
                       >
                         {service.title}
                       </Link>
@@ -156,33 +178,37 @@ export default async function IndustryPage({ params }) {
       >
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
           <div className="flex flex-col gap-5">
-            <p className="font-mono text-eyebrow uppercase tracking-[0.16em] text-prose-faint">
+            <p className="text-eyebrow text-prose-faint font-mono tracking-[0.16em] uppercase">
               Signals — recognise two and it is worth a conversation
             </p>
             <ul className="flex flex-col">
               {niche.signals.map((signal, i) => (
                 <li
                   key={i}
-                  className="flex items-start gap-4 border-t border-paper-edge py-4 last:border-b"
+                  className="border-paper-edge flex items-start gap-4 border-t py-4 last:border-b"
                 >
                   <span
                     aria-hidden
-                    className="mt-1.5 h-3 w-3 shrink-0 rounded-[3px] border border-paper-edge"
+                    className="border-paper-edge mt-1.5 h-3 w-3 shrink-0 rounded-[3px] border"
                   />
-                  <span className="text-micro leading-relaxed text-prose-soft">{signal}</span>
+                  <span className="text-micro text-prose-soft leading-relaxed">
+                    {signal}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <aside className="flex h-fit flex-col gap-3 rounded-panel border border-paper-edge bg-paper-sunk p-7">
-            <p className="font-mono text-eyebrow uppercase tracking-[0.16em] text-[var(--accent)]">
+          <aside className="rounded-panel border-paper-edge bg-paper-sunk flex h-fit flex-col gap-3 border p-7">
+            <p className="text-eyebrow font-mono tracking-[0.16em] text-[var(--accent)] uppercase">
               The constraint we design around
             </p>
-            <p className="text-micro leading-relaxed text-prose-soft">{niche.constraint}</p>
+            <p className="text-micro text-prose-soft leading-relaxed">{niche.constraint}</p>
           </aside>
         </div>
       </IntentSection>
+
+      <DueDiligence dueDiligence={niche.dueDiligence} />
 
       {/* EVALUATE — what each service says about this niche */}
       {segmentsForNiche.length > 0 && (
@@ -193,21 +219,21 @@ export default async function IndustryPage({ params }) {
           lead="Each of these is written for this business type specifically. If a line reads like it could apply to any sector, it should not be here."
           register="sunk"
         >
-          <div className="grid gap-px overflow-hidden rounded-panel border border-paper-edge bg-paper-edge">
+          <div className="rounded-panel border-paper-edge bg-paper-edge grid gap-px overflow-hidden border">
             {segmentsForNiche.map(({ service, segment }) => (
               <article
                 key={service.slug}
                 data-accent={service.accent}
-                className="grid gap-6 bg-paper p-7 md:grid-cols-[minmax(0,14rem)_1fr] md:gap-10 md:p-8"
+                className="bg-paper grid gap-6 p-7 md:grid-cols-[minmax(0,14rem)_1fr] md:gap-10 md:p-8"
               >
                 <div className="flex flex-col gap-3">
-                  <p className="font-mono text-eyebrow uppercase tracking-[0.14em] text-[var(--accent)]">
+                  <p className="text-eyebrow font-mono tracking-[0.14em] text-[var(--accent)] uppercase">
                     {service.group}
                   </p>
                   <h3 className="text-h4 font-medium">
                     <Link
                       href={`/services/${service.slug}`}
-                      className="underline decoration-paper-edge underline-offset-4 transition-colors hover:text-[var(--accent)] hover:decoration-[var(--accent)]"
+                      className="decoration-paper-edge underline underline-offset-4 transition-colors hover:text-[var(--accent)] hover:decoration-[var(--accent)]"
                     >
                       {service.title}
                     </Link>
@@ -215,22 +241,28 @@ export default async function IndustryPage({ params }) {
                 </div>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
-                    <p className="font-mono text-eyebrow uppercase tracking-[0.14em] text-prose-faint">
+                    <p className="text-eyebrow text-prose-faint font-mono tracking-[0.14em] uppercase">
                       What we see
                     </p>
-                    <p className="text-micro leading-relaxed text-prose-soft">{segment.trigger}</p>
+                    <p className="text-micro text-prose-soft leading-relaxed">
+                      {segment.trigger}
+                    </p>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <p className="font-mono text-eyebrow uppercase tracking-[0.14em] text-prose-faint">
+                    <p className="text-eyebrow text-prose-faint font-mono tracking-[0.14em] uppercase">
                       What we build
                     </p>
-                    <p className="text-micro leading-relaxed text-prose-soft">{segment.built}</p>
+                    <p className="text-micro text-prose-soft leading-relaxed">
+                      {segment.built}
+                    </p>
                   </div>
                   <div className="flex flex-col gap-2 sm:col-span-2">
-                    <p className="font-mono text-eyebrow uppercase tracking-[0.14em] text-[var(--accent)]">
+                    <p className="text-eyebrow font-mono tracking-[0.14em] text-[var(--accent)] uppercase">
                       The detail that matters
                     </p>
-                    <p className="text-micro leading-relaxed text-prose-soft">{segment.edge}</p>
+                    <p className="text-micro text-prose-soft leading-relaxed">
+                      {segment.edge}
+                    </p>
                   </div>
                 </div>
               </article>
@@ -250,23 +282,27 @@ export default async function IndustryPage({ params }) {
                   level={2}
                   headline={{ lead: 'And the desks that', accent: 'run alongside them.' }}
                 />
-                <p className="text-lead leading-relaxed text-prose-inv-soft">
-                  Building the system creates the queue. These are the desks that hold it, staffed
-                  to a service level you set.
+                <p className="text-lead text-prose-inv-soft leading-relaxed">
+                  Building the system creates the queue. These are the desks that hold it,
+                  staffed to a service level you set.
                 </p>
               </div>
-              <ul className="grid gap-px self-start overflow-hidden rounded-panel border border-paper-edge bg-paper-edge sm:grid-cols-2">
+              <ul className="rounded-panel border-paper-edge bg-paper-edge grid gap-px self-start overflow-hidden border sm:grid-cols-2">
                 {operations.map((operation) => (
-                  <li key={operation.slug} data-accent={operation.accent} className="bg-ink">
+                  <li
+                    key={operation.slug}
+                    data-accent={operation.accent}
+                    className="bg-ink"
+                  >
                     <Link
                       href={`/operations/${operation.slug}`}
-                      className="group flex h-full flex-col gap-2 p-6 transition-colors hover:bg-ink-lift"
+                      className="group hover:bg-ink-lift flex h-full flex-col gap-2 p-6 transition-colors"
                     >
-                      <span className="font-mono text-eyebrow uppercase tracking-[0.14em] text-[var(--accent)]">
+                      <span className="text-eyebrow font-mono tracking-[0.14em] text-[var(--accent)] uppercase">
                         {operation.group}
                       </span>
                       <span className="text-h4 font-medium">{operation.title}</span>
-                      <span className="text-micro leading-relaxed text-prose-inv-faint">
+                      <span className="text-micro text-prose-inv-faint leading-relaxed">
                         {operation.summary}
                       </span>
                     </Link>

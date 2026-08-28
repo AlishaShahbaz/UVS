@@ -19,12 +19,15 @@ export const aiEngineering = [
     accent: 'iris',
     eyebrow: 'AI Development',
     title: 'AI Development',
-    headline: { lead: 'The model is the easy part.', accent: 'Everything else is the work.' },
+    headline: {
+      lead: 'The model is the easy part.',
+      accent: 'Everything else is the work.',
+    },
     summary:
       'Applied AI systems built with retrieval, evaluation and observability from the first commit — because those decide whether it still works in month six.',
-    metaTitle: 'AI Development — production AI systems | Universal Virtual Support',
+    metaTitle: 'AI Development Services | Universal Virtual Support',
     metaDescription:
-      'AI engineering for systems that stay in production: retrieval architecture, evaluation harnesses, guardrails and observability, integrated with the software you already run.',
+      'AI engineering for systems that stay in production: retrieval architecture, evaluation harnesses, guardrails and observability, wired into what you already run.',
     keywords: [
       'AI development company',
       'production AI systems',
@@ -34,7 +37,8 @@ export const aiEngineering = [
     ],
 
     intent: {
-      primary: 'A technical or operational buyer who has seen an AI demo work and does not trust it to survive real users.',
+      primary:
+        'A technical or operational buyer who has seen an AI demo work and does not trust it to survive real users.',
       queries: [
         'why do AI prototypes fail in production',
         'RAG architecture for company documents',
@@ -164,38 +168,71 @@ export const aiEngineering = [
       },
     ],
 
-    stack: ['Claude', 'OpenAI', 'Gemini', 'LangGraph', 'pgvector', 'Python', 'Next.js', 'PostgreSQL'],
+    stack: [
+      'Claude',
+      'OpenAI',
+      'Gemini',
+      'LangGraph',
+      'pgvector',
+      'Python',
+      'Next.js',
+      'PostgreSQL',
+    ],
 
     process: [
       {
         step: 'Decision mapping',
         body: 'What decision is this system making, how often, and what does a wrong one cost? If the answer is "not much", we say so.',
-        artifacts: ['The decision written down with its failure cost', 'Data and systems inventory', 'A go or no-go recommendation, including no'],
+        artifacts: [
+          'The decision written down with its failure cost',
+          'Data and systems inventory',
+          'A go or no-go recommendation, including no',
+        ],
       },
       {
         step: 'Evaluation first',
         body: 'Before any prompt work, we agree how quality gets measured. This is the step most projects skip and the reason most projects stall.',
-        artifacts: ['Labelled evaluation set from your real cases', 'Scoring rubric and pass threshold', 'A baseline score before any tuning'],
+        artifacts: [
+          'Labelled evaluation set from your real cases',
+          'Scoring rubric and pass threshold',
+          'A baseline score before any tuning',
+        ],
       },
       {
         step: 'Retrieval build',
         body: 'Ingestion, chunking and ranking, tested against the evaluation set rather than against intuition.',
-        artifacts: ['Ingestion pipeline', 'Retrieval scored against baseline', 'Documented chunking strategy and why'],
+        artifacts: [
+          'Ingestion pipeline',
+          'Retrieval scored against baseline',
+          'Documented chunking strategy and why',
+        ],
       },
       {
         step: 'System build',
         body: 'Generation, validation, refusal paths and the integrations into your existing systems.',
-        artifacts: ['Working system in your environment', 'Schema contracts', 'Integration tests'],
+        artifacts: [
+          'Working system in your environment',
+          'Schema contracts',
+          'Integration tests',
+        ],
       },
       {
         step: 'Shadow run',
         body: 'The system runs against real traffic without acting on it, so its failure modes appear before anyone depends on them.',
-        artifacts: ['Shadow report with failure taxonomy', 'Evaluation set extended with real failures', 'Go-live checklist'],
+        artifacts: [
+          'Shadow report with failure taxonomy',
+          'Evaluation set extended with real failures',
+          'Go-live checklist',
+        ],
       },
       {
         step: 'Handover',
         body: 'You own the code, the evaluation set and the runbook. If we stop working together, nothing stops working.',
-        artifacts: ['Repository and infrastructure in your accounts', 'Runbook and escalation paths', 'Training session, recorded'],
+        artifacts: [
+          'Repository and infrastructure in your accounts',
+          'Runbook and escalation paths',
+          'Training session, recorded',
+        ],
       },
     ],
 
@@ -241,7 +278,7 @@ export const aiEngineering = [
     headline: { lead: 'A chatbot tells you what to do.', accent: 'An agent does it.' },
     summary:
       'Autonomous agents that plan, call real tools against real systems, and leave a trace of every action — with human approval gates on anything consequential.',
-    metaTitle: 'AI Agents — autonomous systems with audit trails | Universal Virtual Support',
+    metaTitle: 'AI Agent Development | Universal Virtual Support',
     metaDescription:
       'AI agents that complete tasks end to end: typed tool contracts, scoped permissions, human approval gates and a full replayable trace of every action taken.',
     keywords: [
@@ -253,7 +290,8 @@ export const aiEngineering = [
     ],
 
     intent: {
-      primary: 'An operations owner who has automated the answering and discovered the doing is still manual.',
+      primary:
+        'An operations owner who has automated the answering and discovered the doing is still manual.',
       queries: [
         'difference between AI agent and chatbot',
         'AI agent that can take actions',
@@ -401,18 +439,35 @@ export const aiEngineering = [
       },
     ],
 
-    stack: ['Claude', 'OpenAI', 'LangGraph', 'Temporal', 'PostgreSQL', 'Redis', 'Node.js', 'TypeScript'],
+    stack: [
+      'Claude',
+      'OpenAI',
+      'LangGraph',
+      'Temporal',
+      'PostgreSQL',
+      'Redis',
+      'Node.js',
+      'TypeScript',
+    ],
 
     process: [
       {
         step: 'Task inventory',
         body: 'Every candidate task scored on volume and on what failure costs. High volume and low failure cost goes first — that is where autonomy is cheap to earn.',
-        artifacts: ['Scored task inventory', 'Success criteria per task', 'The tasks we recommend leaving to people'],
+        artifacts: [
+          'Scored task inventory',
+          'Success criteria per task',
+          'The tasks we recommend leaving to people',
+        ],
       },
       {
         step: 'Tool design',
         body: 'Each action the agent can take, defined as a typed contract with its permissions and its failure behaviour.',
-        artifacts: ['Tool schemas', 'Permission matrix per agent', 'Gate conditions, written by you'],
+        artifacts: [
+          'Tool schemas',
+          'Permission matrix per agent',
+          'Gate conditions, written by you',
+        ],
       },
       {
         step: 'Agent build',
@@ -427,12 +482,20 @@ export const aiEngineering = [
       {
         step: 'Graduated release',
         body: 'Autonomy widens one task type at a time, on evidence from shadow mode rather than on a launch date.',
-        artifacts: ['Release plan per task type', 'Monitoring and alerts', 'Rollback procedure'],
+        artifacts: [
+          'Release plan per task type',
+          'Monitoring and alerts',
+          'Rollback procedure',
+        ],
       },
       {
         step: 'Handover',
         body: 'Your repository, your infrastructure, your runbook — including how to add a tool and how to tighten a gate.',
-        artifacts: ['Code and infrastructure transferred', 'Runbook', 'Recorded training session'],
+        artifacts: [
+          'Code and infrastructure transferred',
+          'Runbook',
+          'Recorded training session',
+        ],
       },
     ],
 
@@ -478,7 +541,7 @@ export const aiEngineering = [
     headline: { lead: 'The call gets answered.', accent: 'On the first ring, at 2am.' },
     summary:
       'Voice agents that answer, qualify and book against live availability — and hand a warm call to a person the moment the conversation needs one.',
-    metaTitle: 'AI Voice Agents — answer and book every call | Universal Virtual Support',
+    metaTitle: 'AI Voice Agents | Universal Virtual Support',
     metaDescription:
       'AI voice agents that answer inbound calls, qualify the caller and book against real availability, with rule-based handoff to trained human agents.',
     keywords: [
@@ -490,7 +553,8 @@ export const aiEngineering = [
     ],
 
     intent: {
-      primary: 'An owner-operator losing revenue to unanswered phones and unable to justify a night shift.',
+      primary:
+        'An owner-operator losing revenue to unanswered phones and unable to justify a night shift.',
       queries: [
         'AI answering service for small business',
         'after hours call answering HVAC',
@@ -629,38 +693,70 @@ export const aiEngineering = [
       },
     ],
 
-    stack: ['Deepgram', 'ElevenLabs', 'Claude', 'Twilio', 'LiveKit', 'PostgreSQL', 'Node.js'],
+    stack: [
+      'Deepgram',
+      'ElevenLabs',
+      'Claude',
+      'Twilio',
+      'LiveKit',
+      'PostgreSQL',
+      'Node.js',
+    ],
 
     process: [
       {
         step: 'Call audit',
         body: 'We listen to your actual calls. Every voice agent that fails does so because it was designed from an imagined conversation rather than a real one.',
-        artifacts: ['Call type taxonomy from real recordings', 'Volume and timing profile', 'The call types we recommend never automating'],
+        artifacts: [
+          'Call type taxonomy from real recordings',
+          'Volume and timing profile',
+          'The call types we recommend never automating',
+        ],
       },
       {
         step: 'Conversation design',
         body: 'The flow per call type, the qualification criteria, and the exact conditions that trigger a transfer.',
-        artifacts: ['Conversation flows', 'Transfer rules, written by you', 'Escalation and out-of-scope paths'],
+        artifacts: [
+          'Conversation flows',
+          'Transfer rules, written by you',
+          'Escalation and out-of-scope paths',
+        ],
       },
       {
         step: 'Integration',
         body: 'Calendar, dispatch, PMS, CRM — whatever holds the availability and whatever needs the record.',
-        artifacts: ['Live availability integration', 'CRM write-back', 'Telephony configured'],
+        artifacts: [
+          'Live availability integration',
+          'CRM write-back',
+          'Telephony configured',
+        ],
       },
       {
         step: 'Voice tuning',
         body: 'Latency, interruption handling, accent and noise robustness, tested on real audio rather than in a quiet room.',
-        artifacts: ['Latency measured under load', 'Interruption handling verified', 'Voice selected with you'],
+        artifacts: [
+          'Latency measured under load',
+          'Interruption handling verified',
+          'Voice selected with you',
+        ],
       },
       {
         step: 'Live pilot',
         body: 'One call type, out of hours first, monitored closely with a person able to take over at any point.',
-        artifacts: ['Pilot report with recordings', 'Transfer rate by call type', 'Tuned transfer rules'],
+        artifacts: [
+          'Pilot report with recordings',
+          'Transfer rate by call type',
+          'Tuned transfer rules',
+        ],
       },
       {
         step: 'Rollout',
         body: 'More call types and more hours, widened on pilot evidence.',
-        artifacts: ['Rollout plan', 'Monitoring dashboard', 'Runbook and fallback to human line'],
+        artifacts: [
+          'Rollout plan',
+          'Monitoring dashboard',
+          'Runbook and fallback to human line',
+        ],
       },
     ],
 

@@ -19,6 +19,7 @@ import {
 import { serviceBySlug } from '@/content/services';
 import { nicheBySlug } from '@/content/niches';
 import { company } from '@/content/company';
+import { breadcrumbSchema, areaServed, ORG_ID } from '@/lib/schema';
 import { BuiltFor } from '@/components/sections/built-for';
 import {
   ServiceHero,
@@ -42,7 +43,9 @@ export async function generateMetadata({ params }) {
   const operation = operationBySlug[slug];
   if (!operation) return {};
   return {
-    title: operation.metaTitle ?? operation.title,
+    /* absolute: the metaTitle already carries the brand, so the layout template
+       must not append it again — that produced 95-character titles Google cut off. */
+    title: { absolute: operation.metaTitle ?? `${operation.title} | ${company.name}` },
     description: operation.metaDescription,
     keywords: operation.keywords,
     alternates: { canonical: `/operations/${operation.slug}` },
@@ -92,9 +95,17 @@ export default async function OperationPage({ params }) {
       serviceType: operation.eyebrow,
       description: operation.metaDescription,
       url: `${company.url}/operations/${operation.slug}`,
-      provider: { '@type': 'Organization', name: company.name, url: company.url },
-      areaServed: builtFor?.segments?.map((s) => ({ '@type': 'Audience', audienceType: s.label })),
+      provider: { '@id': ORG_ID },
+      areaServed,
+      audience: builtFor?.segments?.map((s) => ({
+        '@type': 'Audience',
+        audienceType: s.label,
+      })),
     },
+    breadcrumbSchema([
+      { name: 'Run', path: '/operations' },
+      { name: operation.title, path: `/operations/${operation.slug}` },
+    ]),
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',

@@ -44,7 +44,12 @@ export function resolveBuiltFor(service) {
     .map((segment) => {
       const niche = nicheBySlug[segment.niche];
       if (!niche) return null;
-      return { ...segment, href: `/industries/${niche.slug}`, accent: niche.accent, nicheLabel: niche.label };
+      return {
+        ...segment,
+        href: `/industries/${niche.slug}`,
+        accent: niche.accent,
+        nicheLabel: niche.label,
+      };
     })
     .filter(Boolean);
   return { ...service.builtFor, segments };

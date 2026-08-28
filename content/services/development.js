@@ -14,10 +14,13 @@ export const development = [
     accent: 'azure',
     eyebrow: 'Website Development',
     title: 'Website Development',
-    headline: { lead: 'A website is not a brochure.', accent: 'It is the first shift of your sales team.' },
+    headline: {
+      lead: 'A website is not a brochure.',
+      accent: 'It is the first shift of your sales team.',
+    },
     summary:
       'Fast, accessible, search-legible websites built on a performance budget — and handed over as a codebase you own, not a platform you rent.',
-    metaTitle: 'Website Development — fast, accessible, owned | Universal Virtual Support',
+    metaTitle: 'Website Development | Universal Virtual Support',
     metaDescription:
       'Website development with a performance budget, WCAG 2.2 AA accessibility, structured data and full code ownership. Built to convert and to be maintained.',
     keywords: [
@@ -29,7 +32,8 @@ export const development = [
     ],
 
     intent: {
-      primary: 'A business whose current site was built by someone unreachable, loads slowly, and cannot be edited without a quote.',
+      primary:
+        'A business whose current site was built by someone unreachable, loads slowly, and cannot be edited without a quote.',
       queries: [
         'why is my website so slow',
         'website redesign that converts',
@@ -186,38 +190,70 @@ export const development = [
       },
     ],
 
-    stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Vercel', 'Playwright'],
+    stack: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'PostgreSQL',
+      'Vercel',
+      'Playwright',
+    ],
 
     process: [
       {
         step: 'Intent mapping',
         body: 'Which pages exist, who arrives on each, what they are trying to do, and what the page must make easy. Structure follows that, not a template.',
-        artifacts: ['Page inventory with the intent each serves', 'Content model', 'The pages we recommend not building'],
+        artifacts: [
+          'Page inventory with the intent each serves',
+          'Content model',
+          'The pages we recommend not building',
+        ],
       },
       {
         step: 'Budgets and gates',
         body: 'Performance, accessibility and browser support fixed as numbers before design begins, so they constrain design rather than survive it.',
-        artifacts: ['Performance budget', 'Accessibility target and test plan', 'Browser and device matrix'],
+        artifacts: [
+          'Performance budget',
+          'Accessibility target and test plan',
+          'Browser and device matrix',
+        ],
       },
       {
         step: 'Design system',
         body: 'Tokens, type scale and components built as a system, so page fifty looks like page one without anyone policing it.',
-        artifacts: ['Token set and type scale', 'Component library', 'Contrast verified across every pairing'],
+        artifacts: [
+          'Token set and type scale',
+          'Component library',
+          'Contrast verified across every pairing',
+        ],
       },
       {
         step: 'Build',
         body: 'Pages assembled from the system and the content model, with the gates running from the first commit.',
-        artifacts: ['Working site on preview URLs', 'CI pipeline with gates active', 'Structured data emitted from content'],
+        artifacts: [
+          'Working site on preview URLs',
+          'CI pipeline with gates active',
+          'Structured data emitted from content',
+        ],
       },
       {
         step: 'Verification',
         body: 'Real devices, keyboard-only navigation, screen reader, throttled network. Not a desktop score screenshot.',
-        artifacts: ['Accessibility audit report', 'Performance results under throttling', 'Cross-browser results'],
+        artifacts: [
+          'Accessibility audit report',
+          'Performance results under throttling',
+          'Cross-browser results',
+        ],
       },
       {
         step: 'Handover',
         body: 'Repository, hosting, domain and documentation, in your accounts, with training recorded.',
-        artifacts: ['Everything transferred to your accounts', 'Editing and deployment documentation', 'Recorded training session'],
+        artifacts: [
+          'Everything transferred to your accounts',
+          'Editing and deployment documentation',
+          'Recorded training session',
+        ],
       },
     ],
 
@@ -263,7 +299,7 @@ export const development = [
     headline: { lead: 'Most businesses do not need an app.', accent: 'Some genuinely do.' },
     summary:
       'Native and cross-platform apps built where a mobile app is the right answer — offline capability, device hardware, or a workflow people run all day in the field.',
-    metaTitle: 'Mobile App Development — iOS and Android | Universal Virtual Support',
+    metaTitle: 'Mobile App Development | Universal Virtual Support',
     metaDescription:
       'Mobile app development for businesses with a genuine mobile case: offline-first field tools, device hardware access, and workflows that live on a phone.',
     keywords: [
@@ -275,7 +311,8 @@ export const development = [
     ],
 
     intent: {
-      primary: 'A business that has been quoted for an app and is not sure whether they need one.',
+      primary:
+        'A business that has been quoted for an app and is not sure whether they need one.',
       queries: [
         'do I need a mobile app or a website',
         'field service app for technicians',
@@ -396,38 +433,70 @@ export const development = [
       },
     ],
 
-    stack: ['React Native', 'Expo', 'Swift', 'Kotlin', 'SQLite', 'TypeScript', 'PostgreSQL'],
+    stack: [
+      'React Native',
+      'Expo',
+      'Swift',
+      'Kotlin',
+      'SQLite',
+      'TypeScript',
+      'PostgreSQL',
+    ],
 
     process: [
       {
         step: 'The app question',
         body: 'Does this need to be an app? Offline, hardware, or daily repeated use. If none apply we recommend mobile web and scope that instead.',
-        artifacts: ['Written recommendation, including "do not build"', 'Platform decision with reasoning', 'Cost comparison against mobile web'],
+        artifacts: [
+          'Written recommendation, including "do not build"',
+          'Platform decision with reasoning',
+          'Cost comparison against mobile web',
+        ],
       },
       {
         step: 'Field study',
         body: 'We watch the work happen in the place it happens. Every unused field app was designed from a description of the job rather than the job.',
-        artifacts: ['Observed workflow, documented', 'Environmental constraints', 'The current workaround, and why it exists'],
+        artifacts: [
+          'Observed workflow, documented',
+          'Environmental constraints',
+          'The current workaround, and why it exists',
+        ],
       },
       {
         step: 'Data and sync design',
         body: 'What is stored locally, what syncs, and what happens to every kind of conflict. Decided before any screen is built.',
-        artifacts: ['Local data model', 'Sync and conflict rules per record type', 'Offline behaviour specification'],
+        artifacts: [
+          'Local data model',
+          'Sync and conflict rules per record type',
+          'Offline behaviour specification',
+        ],
       },
       {
         step: 'Build',
         body: 'Screens and workflow against the real data layer, tested on real devices from the first week.',
-        artifacts: ['Test builds on real devices', 'Offline scenarios verified', 'Crash reporting live'],
+        artifacts: [
+          'Test builds on real devices',
+          'Offline scenarios verified',
+          'Crash reporting live',
+        ],
       },
       {
         step: 'Field pilot',
         body: 'A small group, real jobs, real conditions — including the basement with no signal.',
-        artifacts: ['Pilot findings from actual users', 'Battery and data measurements', 'Revised workflow'],
+        artifacts: [
+          'Pilot findings from actual users',
+          'Battery and data measurements',
+          'Revised workflow',
+        ],
       },
       {
         step: 'Release and handover',
         body: 'Store submission, staged rollout, and the accounts and pipeline transferred to you.',
-        artifacts: ['Apps published under your developer accounts', 'Release pipeline documented', 'Recorded training session'],
+        artifacts: [
+          'Apps published under your developer accounts',
+          'Release pipeline documented',
+          'Recorded training session',
+        ],
       },
     ],
 

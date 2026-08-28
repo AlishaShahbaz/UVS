@@ -46,6 +46,7 @@ const AI_CRAWLERS = [
   'Applebot-Extended',
   'meta-externalagent',
   'CCBot',
+  'Amazonbot',
 ];
 
 const normalise = (url) => (url ?? '').trim().replace(/\/+$/, '').toLowerCase();

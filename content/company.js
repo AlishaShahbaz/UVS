@@ -71,6 +71,23 @@ export const company = {
     },
   ],
 
+  /**
+   * MARKETS SERVED.
+   *
+   * Three, and they are genuinely three — an Australian office, US-market
+   * keyword demand, and European fintech clients named in the founder's own
+   * background. The SEO package that prompted this assumed a US-only business
+   * and would have shipped `areaServed: United States`, which would have been
+   * wrong in schema and wrong on the page.
+   *
+   * Emitted as `areaServed` on the Organization and on every Service.
+   */
+  markets: [
+    { type: 'Country', name: 'United States' },
+    { type: 'Country', name: 'Australia' },
+    { type: 'Place', name: 'Europe' },
+  ],
+
   founded: 2019,
 
   /* Used for the postal address in the footer, the contact page and the
@@ -164,12 +181,36 @@ export const company = {
     headline: 'How an engagement actually runs.',
     body: 'The same six stages whether we are building a system or staffing a desk. The point of naming them is that each one has an exit — you can stop after discovery with something useful in hand.',
     stages: [
-      { n: '01', step: 'Discovery', body: 'What is the problem, what does failure cost, and is this worth doing at all. Ends in a written recommendation, including no.' },
-      { n: '02', step: 'Definition', body: 'Scope, thresholds, budgets and success criteria fixed as numbers before anything is built.' },
-      { n: '03', step: 'Build', body: 'The system or the desk, assembled against those numbers with the gates running from day one.' },
-      { n: '04', step: 'Shadow', body: 'It runs alongside the current process without replacing it, so failure modes appear before anyone depends on them.' },
-      { n: '05', step: 'Release', body: 'Widened one category at a time, on evidence from shadow rather than on a launch date.' },
-      { n: '06', step: 'Handover', body: 'Code, accounts, runbook and training. If we stop working together, nothing stops working.' },
+      {
+        n: '01',
+        step: 'Discovery',
+        body: 'What is the problem, what does failure cost, and is this worth doing at all. Ends in a written recommendation, including no.',
+      },
+      {
+        n: '02',
+        step: 'Definition',
+        body: 'Scope, thresholds, budgets and success criteria fixed as numbers before anything is built.',
+      },
+      {
+        n: '03',
+        step: 'Build',
+        body: 'The system or the desk, assembled against those numbers with the gates running from day one.',
+      },
+      {
+        n: '04',
+        step: 'Shadow',
+        body: 'It runs alongside the current process without replacing it, so failure modes appear before anyone depends on them.',
+      },
+      {
+        n: '05',
+        step: 'Release',
+        body: 'Widened one category at a time, on evidence from shadow rather than on a launch date.',
+      },
+      {
+        n: '06',
+        step: 'Handover',
+        body: 'Code, accounts, runbook and training. If we stop working together, nothing stops working.',
+      },
     ],
   },
 

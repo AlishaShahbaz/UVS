@@ -6,6 +6,7 @@
  * what happens when things go wrong, so those are the sections.
  */
 
+import Link from 'next/link';
 import { company } from '@/content/company';
 import {
   Container,
@@ -55,7 +56,54 @@ export default function AboutPage() {
         containerSize="wide"
         register="sunk"
       >
-        <HandoffFigure />
+        <div className="flex flex-col gap-10">
+          <HandoffFigure />
+
+          {/* The two halves, linked. This page argues that the seam is the
+              whole model and then, until now, gave the reader no way to go and
+              look at either side of it. */}
+          <div className="rounded-panel border-paper-edge bg-paper-edge grid gap-px overflow-hidden border sm:grid-cols-2">
+            {company.halves.map((half) => (
+              <Link
+                key={half.id}
+                href={half.href}
+                className="group bg-paper hover:bg-paper-sunk flex flex-col gap-2 p-7 transition-colors"
+              >
+                <span className="text-eyebrow flex items-center gap-3 font-mono tracking-[0.16em] text-[var(--accent)] uppercase">
+                  {half.label}
+                  <span
+                    aria-hidden
+                    className="ml-auto transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    →
+                  </span>
+                </span>
+                <span className="text-h4 font-medium">{half.title}</span>
+                <span className="text-micro text-prose-soft leading-relaxed">
+                  {half.body}
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          <p className="measure text-micro text-prose-soft leading-relaxed">
+            If you would rather start from your own situation than from our service list,{' '}
+            <Link
+              href="/industries"
+              className="text-prose decoration-paper-edge underline underline-offset-4 transition-colors hover:text-[var(--accent)] hover:decoration-[var(--accent)]"
+            >
+              the industries index
+            </Link>{' '}
+            names thirteen business types and the pressure behind each. The{' '}
+            <Link
+              href="/technologies"
+              className="text-prose decoration-paper-edge underline underline-offset-4 transition-colors hover:text-[var(--accent)] hover:decoration-[var(--accent)]"
+            >
+              technologies page
+            </Link>{' '}
+            lists every tool we actually use, generated from what each desk declares.
+          </p>
+        </div>
       </IntentSection>
 
       {/* The one place the site speaks about a person rather than the company.

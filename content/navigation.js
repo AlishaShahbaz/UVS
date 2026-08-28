@@ -53,11 +53,23 @@ export const primaryNav = [
     columns: [
       {
         title: 'By business type',
-        links: niches.slice(0, 6).map((n) => ({ label: n.label, href: `/industries/${n.slug}`, accent: n.accent })),
+        links: niches
+          .slice(0, 6)
+          .map((n) => ({
+            label: n.label,
+            href: `/industries/${n.slug}`,
+            accent: n.accent,
+          })),
       },
       {
         title: ' ',
-        links: niches.slice(6).map((n) => ({ label: n.label, href: `/industries/${n.slug}`, accent: n.accent })),
+        links: niches
+          .slice(6)
+          .map((n) => ({
+            label: n.label,
+            href: `/industries/${n.slug}`,
+            accent: n.accent,
+          })),
       },
     ],
   },
@@ -88,9 +100,22 @@ export const primaryNav = [
 ];
 
 export const footerNav = [
-  { title: 'Run', links: operationGroups.flatMap((g) => g.operations).map((o) => ({ label: o.title, href: `/operations/${o.slug}` })) },
-  { title: 'Build', links: serviceGroups.flatMap((g) => g.services).map((s) => ({ label: s.title, href: `/services/${s.slug}` })) },
-  { title: 'Industries', links: niches.map((n) => ({ label: n.label, href: `/industries/${n.slug}` })) },
+  {
+    title: 'Run',
+    links: operationGroups
+      .flatMap((g) => g.operations)
+      .map((o) => ({ label: o.title, href: `/operations/${o.slug}` })),
+  },
+  {
+    title: 'Build',
+    links: serviceGroups
+      .flatMap((g) => g.services)
+      .map((s) => ({ label: s.title, href: `/services/${s.slug}` })),
+  },
+  {
+    title: 'Industries',
+    links: niches.map((n) => ({ label: n.label, href: `/industries/${n.slug}` })),
+  },
   {
     title: 'Company',
     links: [

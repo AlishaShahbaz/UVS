@@ -11,9 +11,15 @@
  */
 
 import { notFound } from 'next/navigation';
-import { serviceBySlug, serviceSlugs, resolveBuiltFor, relatedServices } from '@/content/services';
+import {
+  serviceBySlug,
+  serviceSlugs,
+  resolveBuiltFor,
+  relatedServices,
+} from '@/content/services';
 import { operationBySlug } from '@/content/operations';
 import { company } from '@/content/company';
+import { breadcrumbSchema, areaServed, ORG_ID } from '@/lib/schema';
 import { BuiltFor } from '@/components/sections/built-for';
 import {
   ServiceHero,
@@ -36,7 +42,9 @@ export async function generateMetadata({ params }) {
   const service = serviceBySlug[slug];
   if (!service) return {};
   return {
-    title: service.metaTitle ?? service.title,
+    /* absolute: the metaTitle already carries the brand, so the layout template
+       must not append it again — that produced 95-character titles Google cut off. */
+    title: { absolute: service.metaTitle ?? `${service.title} | ${company.name}` },
     description: service.metaDescription,
     keywords: service.keywords,
     alternates: { canonical: `/services/${service.slug}` },
@@ -72,9 +80,17 @@ export default async function ServicePage({ params }) {
       serviceType: service.eyebrow,
       description: service.metaDescription,
       url: `${company.url}/services/${service.slug}`,
-      provider: { '@type': 'Organization', name: company.name, url: company.url },
-      areaServed: builtFor?.segments?.map((s) => ({ '@type': 'Audience', audienceType: s.label })),
+      provider: { '@id': ORG_ID },
+      areaServed,
+      audience: builtFor?.segments?.map((s) => ({
+        '@type': 'Audience',
+        audienceType: s.label,
+      })),
     },
+    breadcrumbSchema([
+      { name: 'Build', path: '/services' },
+      { name: service.title, path: `/services/${service.slug}` },
+    ]),
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -102,7 +118,11 @@ export default async function ServicePage({ params }) {
       <ProcessSection process={service.process} />
       <FaqSection faq={service.faq} />
       <HandoffSection handoff={service.handoff} target={handoffTarget} />
-      <CtaSection related={related} relatedBase="/services" relatedLabel="Related services" />
+      <CtaSection
+        related={related}
+        relatedBase="/services"
+        relatedLabel="Related services"
+      />
     </div>
   );
 }
