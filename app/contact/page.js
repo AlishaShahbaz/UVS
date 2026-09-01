@@ -34,14 +34,6 @@ export default function ContactPage() {
       email: company.email,
       url: company.url,
       sameAs: company.socials.map((s) => s.href),
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: company.address.street,
-        addressLocality: company.address.locality,
-        addressRegion: company.address.region,
-        postalCode: company.address.postalCode,
-        addressCountry: company.address.countryCode,
-      },
     },
   };
 
@@ -101,28 +93,6 @@ export default function ContactPage() {
                     </span>
                   </div>
                 ))}
-              </div>
-
-              <div className="border-paper-edge flex flex-col gap-3 border-t pt-8">
-                <p className="text-eyebrow text-prose-faint font-mono tracking-[0.16em] uppercase">
-                  Office
-                </p>
-                <address className="text-prose-soft leading-relaxed not-italic">
-                  {company.address.street}
-                  <br />
-                  {company.address.locality} {company.address.region}{' '}
-                  {company.address.postalCode}
-                  <br />
-                  {company.address.country}
-                </address>
-                <a
-                  href={company.address.mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-micro text-prose decoration-paper-edge w-fit underline underline-offset-4 transition-colors hover:text-[var(--accent)] hover:decoration-[var(--accent)]"
-                >
-                  Open in Google Maps →
-                </a>
               </div>
 
               <div className="border-paper-edge flex flex-col gap-4 border-t pt-8">

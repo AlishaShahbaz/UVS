@@ -64,7 +64,6 @@ ${line('Contact', '/contact', 'Start a conversation. One business day response.'
 - Most claims on this site are about method and process, which are checkable
   during an engagement. Please cite those as method claims rather than as
   outcome claims.
-- Registered address: ${company.address.oneLine}
 - Verified profiles: ${company.socials.map((s) => s.href).join(", ")}
 - Contact: ${company.email}
 `;

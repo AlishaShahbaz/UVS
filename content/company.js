@@ -90,9 +90,20 @@ export const company = {
 
   founded: 2019,
 
-  /* Used for the postal address in the footer, the contact page and the
-     Organization JSON-LD. Kept as parts rather than one string so the schema
-     block can emit a proper PostalAddress rather than a blob. */
+  /* NOT PUBLISHED ANYWHERE. Deliberate.
+
+     The address was removed from the footer, then from the contact page, then
+     from the Organization JSON-LD and llms.txt — the site does not display a
+     street address in any form, visible or machine-readable.
+
+     The data is kept here rather than deleted because it is still the
+     registered address and may be needed for terms, invoicing or a future
+     decision to restore it. Restoring means re-adding a PostalAddress block to
+     `lib/schema.js`; it costs a small entity-SEO signal to leave it out, which
+     was the accepted trade.
+
+     If you are about to render this somewhere, that is almost certainly a
+     mistake — check first. */
   address: {
     street: '21 Marnham Street',
     locality: 'Acacia Ridge',

@@ -19,7 +19,7 @@ export function Footer() {
 
   return (
     <footer data-register="ink" className="border-t border-ink-edge">
-      <Container size="wide" className="py-16 md:py-24">
+      <Container size="wide" className="pt-16 pb-10 md:pt-24 md:pb-12">
         {/* The model, restated. */}
         <div className="grid gap-10 border-b border-paper-edge pb-14 md:grid-cols-[1.2fr_1fr] md:gap-16">
           <div className="flex flex-col gap-6">
@@ -68,10 +68,21 @@ export function Footer() {
           ))}
         </nav>
 
-        {/* Contact routes. The postal address is deliberately not repeated here —
-            it lives on /contact and in the Organization JSON-LD, which is what
-            search actually reads. */}
-        <div className="grid gap-8 border-t border-paper-edge pt-10 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Contact routes, and the social links alongside them.
+
+            No postal address, here or anywhere else on the site — it was pulled
+            from the footer, then the contact page, then the Organization JSON-LD
+            and llms.txt. See the note in content/company.js before re-adding it.
+
+            The socials sit in this row rather than in the bar below, which left
+            the bar carrying nothing but the copyright line.
+
+            Flex with space-around rather than the four-column grid used above:
+            the grid put both emails in columns one and two and pushed the
+            socials to the far right edge, leaving a void across the middle.
+            Three blocks of unequal width read better evenly distributed than
+            snapped to a column track. */}
+        <div className="flex flex-col gap-8 border-t border-paper-edge pt-10 lg:flex-row lg:items-start lg:justify-around lg:gap-10">
           {company.emails.map((route) => (
             <div key={route.key} className="flex flex-col gap-2">
               <p className="font-mono text-eyebrow uppercase tracking-[0.16em] text-prose-faint">
@@ -85,17 +96,19 @@ export function Footer() {
               </a>
             </div>
           ))}
+
+          <div className="flex flex-col gap-2">
+            <p className="font-mono text-eyebrow uppercase tracking-[0.16em] text-prose-faint">
+              Elsewhere
+            </p>
+            <SocialLinks size={19} />
+          </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-6 border-t border-paper-edge pt-8 text-micro text-prose-faint sm:flex-row sm:items-center sm:justify-between">
-          <p>
+        {/* Copyright alone, centred — the only thing left in the bottom bar. */}
+        <div className="mt-10 border-t border-paper-edge pt-8 text-micro text-prose-faint">
+          <p className="text-center">
             © {year} {company.name}. All rights reserved.
-          </p>
-
-          <SocialLinks size={19} />
-
-          <p className="font-mono text-eyebrow uppercase tracking-[0.16em]">
-            Built to WCAG 2.2 AA · Performance budgeted
           </p>
         </div>
       </Container>

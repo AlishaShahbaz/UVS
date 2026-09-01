@@ -52,14 +52,6 @@ export default function HomePage() {
       foundingDate: String(company.founded),
       description:
         'Support and AI engineering. We build the systems — AI, software and campaigns — then staff the queues those systems create.',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: company.address.street,
-        addressLocality: company.address.locality,
-        addressRegion: company.address.region,
-        postalCode: company.address.postalCode,
-        addressCountry: company.address.countryCode,
-      },
       numberOfEmployees: {
         '@type': 'QuantitativeValue',
         minValue: 500,

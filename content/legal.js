@@ -139,22 +139,25 @@ export const legal = [
     sections: [
       {
         heading: 'Our target',
-        body: 'This site is built to WCAG 2.2 Level AA. That is a pass condition in our build pipeline rather than an aspiration in a paragraph — a release that fails the automated checks does not deploy.',
+        body: 'This site targets WCAG 2.2 Level AA. One part of that is enforced rather than asserted: every foreground and background pairing in the design system is checked against the AA contrast thresholds on every build, and a release that fails does not ship. The rest of Level AA is a standard we build to, not a result we have audited — so treat it as a target we hold ourselves to rather than a certified pass.',
       },
       {
         heading: 'How we test',
-        body: 'Automated checks run on every route on every commit, and a manual pass runs before each release.',
+        body: 'One automated gate and a set of build standards. We would rather list what actually runs than describe a testing programme we do not have.',
         list: [
-          'Automated auditing on every route, blocking the build on failure.',
-          'Keyboard-only navigation of every interactive element.',
-          'Screen reader pass on the primary journeys.',
-          'Colour contrast verified for every foreground and background pairing in the token system.',
-          'Reduced-motion honoured — every animated figure has a finished still frame.',
+          'Colour contrast verified for every foreground and background pairing in the token system, blocking the build on failure.',
+          'Reduced motion honoured — every animated figure has a finished still frame, guarded in both the global stylesheet and the components themselves.',
+          'Semantic HTML, labelled controls and keyboard-operable components as a build standard rather than a retrofit.',
         ],
       },
       {
         heading: 'Known limitations',
-        body: 'Complex diagrams carry text alternatives describing the process rather than the picture. We think that is the more useful description, and we would like to hear if it is not.',
+        body: 'Two things are worth saying plainly, because the alternative is letting you assume otherwise.',
+        list: [
+          'There is no automated audit against the full set of AA success criteria on every route. Contrast is gated; the rest is not.',
+          'There has been no formal keyboard-only or screen-reader pass on the primary journeys. It is on the list and it has not happened yet.',
+          'Complex diagrams carry text alternatives describing the process rather than the picture. We think that is the more useful description, and we would like to hear if it is not.',
+        ],
       },
       {
         heading: 'Tell us',
