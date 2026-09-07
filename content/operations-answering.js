@@ -48,11 +48,8 @@ export const answeringOperations = [
       'Live phone answering for small businesses — every call answered, every message delivered, every lead captured. Staffed desks with a service level you set.',
     keywords: [
       'answering service for small business',
-      'small business answering service',
-      'phone answering service',
+      'answering service',
       'call answering service',
-      'telephone answering service',
-      'live answering service',
     ],
 
     intent: {
@@ -285,10 +282,8 @@ export const answeringOperations = [
       'After-hours phone answering for evenings, weekends and holidays. Real people on your line, urgent calls escalated on your rules, leads captured instead of lost.',
     keywords: [
       'after hours answering service',
-      'after hours phone answering service',
-      'after hours virtual receptionist',
-      'after hours call answering service',
-      'overnight answering service',
+      '24/7 answering service',
+      'out of hours call answering',
     ],
 
     intent: {
@@ -511,11 +506,9 @@ export const answeringOperations = [
     metaDescription:
       'Virtual receptionist services: a real person answers in your company greeting, screens and transfers calls, books appointments and captures new-client details.',
     keywords: [
-      'virtual receptionist services',
       'virtual receptionist',
-      'remote receptionist',
-      'virtual front desk',
-      'receptionist answering service',
+      'virtual receptionist service',
+      'phone answering service',
     ],
 
     intent: {

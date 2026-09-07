@@ -786,7 +786,7 @@ export const marketing = [
     },
     summary:
       'Paid social built for demand creation — creative volume as the main lever, tested against incremental revenue rather than platform-attributed conversions.',
-    metaTitle: 'Meta Ads Management | Universal Virtual Support',
+    metaTitle: 'Meta Ads Agency | Universal Virtual Support',
     metaDescription:
       'Facebook and Instagram advertising built around creative volume and incrementality testing, for businesses creating demand rather than capturing it.',
     keywords: [

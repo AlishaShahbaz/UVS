@@ -28,6 +28,7 @@ import {
 import { legal as legalPages, legalPlaceholders } from '../content/legal.js';
 import { company, unverifiedFigures } from '../content/company.js';
 import { INTENT_LADDER } from '../content/intent.js';
+import { posts, postLinkTargets } from '../content/blog.js';
 import { compliancePosture } from '../content/compliance.js';
 import { arcGeometry } from '../components/brand/mark-geometry.js';
 import { explainOrigin } from '../lib/origin.js';
@@ -474,6 +475,82 @@ for (const hit of claimHits) {
   fail(`unevidenced compliance claim (${hit.rule}) at ${hit.path} — ${hit.why}\n          …${hit.quote}…`);
 }
 
+
+/* ── 8.7 Blog ─────────────────────────────────────────────────────────── */
+/**
+ * Two things can rot quietly in a guide.
+ *
+ * The first is a dead internal link. The link gate measures a running build,
+ * so it catches one only after the page has shipped; these are checked at
+ * source against the same slug arrays the navigation and sitemap read from.
+ *
+ * The second is a post that has drifted away from the term it was written to
+ * win. Every post declares its keywords, and the primary one — the first in
+ * the list — has to survive in the title and somewhere in the body. Rewriting
+ * the copy until the keyword is gone is easy to do by accident and invisible
+ * afterwards.
+ */
+const validPaths = new Set([
+  '/', '/services', '/operations', '/industries', '/about', '/technologies',
+  '/faq', '/contact', '/blog',
+  ...services.map((x) => `/services/${x.slug}`),
+  ...operations.map((x) => `/operations/${x.slug}`),
+  ...niches.map((x) => `/industries/${x.slug}`),
+  ...legalPages.map((x) => `/legal/${x.slug}`),
+  ...posts.map((x) => `/blog/${x.slug}`),
+]);
+
+for (const { post, href } of postLinkTargets()) {
+  const path = href.split('#')[0];
+  if (!validPaths.has(path)) fail(`blog "${post}" links to ${href}, which is not a page`);
+}
+
+const MIN_BLOG_LINKS = 5;
+for (const post of posts) {
+  const links = postLinkTargets().filter((l) => l.post === post.slug);
+  const unique = new Set(links.map((l) => l.href.split('#')[0]));
+  if (unique.size < MIN_BLOG_LINKS) {
+    fail(
+      `blog "${post.slug}" has ${unique.size} unique in-body internal link(s), needs ${MIN_BLOG_LINKS}`,
+    );
+  }
+
+  const primary = post.keywords?.[0];
+  if (!primary) {
+    fail(`blog "${post.slug}" declares no keywords`);
+    continue;
+  }
+  const haystack = `${post.title} ${post.metaTitle} ${post.metaDescription} ${JSON.stringify(post.sections)} ${JSON.stringify(post.faq)}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ');
+  const needle = primary.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  if (!haystack.includes(needle)) {
+    fail(`blog "${post.slug}" no longer contains its primary keyword "${primary}"`);
+  }
+
+  for (const field of ['excerpt', 'question', 'metaDescription']) {
+    if (!post[field]) fail(`blog "${post.slug}" is missing ${field}`);
+  }
+  if (post.metaTitle.length > 60) {
+    fail(`blog "${post.slug}" metaTitle is ${post.metaTitle.length} chars, over 60`);
+  }
+  /* A missing image file is invisible until the page is served, and a
+     missing alt is invisible for longer than that. */
+  if (!post.image?.src) {
+    fail(`blog "${post.slug}" has no image`);
+  } else {
+    if (!existsSync(`public${post.image.src}`)) {
+      fail(`blog "${post.slug}" image ${post.image.src} is not in public/`);
+    }
+    if (!post.image.alt || post.image.alt.length < 40) {
+      fail(`blog "${post.slug}" image alt text is missing or too short to describe a diagram`);
+    }
+  }
+
+  const ids = post.sections.map((x) => x.id);
+  if (new Set(ids).size !== ids.length) fail(`blog "${post.slug}" has duplicate section ids`);
+}
+
 /* ── 9. Production-only gates ─────────────────────────────────────────── */
 const isProduction =
   process.env.NODE_ENV === 'production' || process.argv.includes('--production');
@@ -503,6 +580,7 @@ const counts = {
   services: services.length,
   operations: operations.length,
   niches: niches.length,
+  posts: posts.length,
   segments:
     services.reduce((n, s) => n + s.builtFor.segments.length, 0) +
     operations.reduce((n, o) => n + o.builtFor.segments.length, 0),
@@ -510,7 +588,7 @@ const counts = {
 
 console.log(
   `content: ${counts.services} services, ${counts.operations} operations, ` +
-    `${counts.niches} niches, ${counts.segments} niche segments`,
+    `${counts.niches} niches, ${counts.posts} post(s), ${counts.segments} niche segments`,
 );
 
 const thinnest = coverage.reduce((a, b) => (a.detailed < b.detailed ? a : b));

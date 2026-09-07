@@ -8,6 +8,7 @@
 
 import Link from 'next/link';
 import { company } from '@/content/company';
+import { organizationSchema, breadcrumbSchema, ORG_ID } from '@/lib/schema';
 import {
   Container,
   Eyebrow,
@@ -31,8 +32,38 @@ export const metadata = {
 };
 
 export default function AboutPage() {
+  /* This page carried no structured data at all, which was the largest gap in
+     the site's E-E-A-T surface: it is the page that states who runs the work,
+     what the company commits to, and how an engagement proceeds — and none of
+     it was machine-readable.
+
+     The Organization block is the enriched one from lib/schema.js, which
+     declares foundingDate, headcount and `knowsAbout` derived from the desks
+     and services actually run. It was exported but never used anywhere until
+     now; the homepage builds its own inline copy. */
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      organizationSchema,
+      breadcrumbSchema([{ name: 'How we work', path: '/about' }]),
+      {
+        '@type': 'AboutPage',
+        '@id': `${company.url}/about#page`,
+        url: `${company.url}/about`,
+        name: 'How we work',
+        description: company.positioning.body,
+        about: { '@id': ORG_ID },
+        mainEntity: { '@id': ORG_ID },
+      },
+    ],
+  };
+
   return (
     <div data-accent="slate">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Section register="ink" size="loose" overlap className="border-ink-edge border-b">
         <HeroField />
         <Container className="relative">

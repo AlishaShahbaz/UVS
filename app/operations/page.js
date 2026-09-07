@@ -36,7 +36,7 @@ import { HeroField } from '@/components/bento/hero-field';
 import { spell } from '@/lib/words';
 
 export const metadata = {
-  title: 'Run — staffed desks with a service level',
+  title: 'Customer Support Outsourcing — staffed desks',
   description:
     `${spell(operations.length, true)} operations desks across conversation, transaction and compliance: ` +
     `live chat, voice, email, orders, B2B sales, data entry, KYC onboarding and transaction ` +

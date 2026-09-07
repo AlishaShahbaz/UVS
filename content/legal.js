@@ -47,7 +47,7 @@ export const legal = [
       },
       {
         heading: 'How long we keep it',
-        body: 'Enquiries that do not become engagements are deleted after [RETENTION_PERIOD]. Client records are kept for the duration of the engagement and for the period our legal and tax obligations require afterwards.',
+        body: 'Enquiries that do not become engagements are deleted after 24 months. Client records are kept for the duration of the engagement and for five years afterwards, which is the period Australian tax law requires business records to be held.',
       },
       {
         heading: 'Who else sees it',
@@ -95,7 +95,7 @@ export const legal = [
       },
       {
         heading: 'Governing law',
-        body: 'These terms are governed by the laws of [JURISDICTION], and disputes go to the courts of [JURISDICTION].',
+        body: 'These terms are governed by the laws of Queensland, Australia, and disputes go to the courts of Queensland, Australia. If your own contract with us sets a different governing law, that contract takes precedence over this page.',
       },
     ],
   },

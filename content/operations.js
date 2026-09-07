@@ -34,10 +34,9 @@ const baseOperations = [
     metaDescription:
       'Outsourced live chat support with AI handling repetitive questions and trained agents handling the rest, to a response window you define.',
     keywords: [
-      'outsourced live chat support',
-      'live chat agents',
-      '24/7 chat support service',
-      'ecommerce chat support',
+      'outsourced live chat',
+      'live chat support services',
+      'chat support outsourcing',
     ],
 
     intent: {
@@ -267,13 +266,13 @@ const baseOperations = [
     headline: { lead: 'Every call answered.', accent: 'Including the ones at 3am.' },
     summary:
       'A staffed phone line with an AI layer on routine calls — inbound, outbound and overflow, to a service level you set.',
-    metaTitle: 'Outsourced Call Handling | Universal Virtual Support',
+    metaTitle: 'Call Center Outsourcing | Universal Virtual Support',
     metaDescription:
-      'Outsourced call handling with trained agents and an AI layer for routine calls. Inbound, outbound and overflow coverage to a defined service level.',
+      'Call center outsourcing with trained agents and an AI layer for routine calls. Inbound, outbound and overflow coverage to a defined service level.',
     keywords: [
+      'call center outsourcing',
+      'inbound call center services',
       'outsourced call handling',
-      'answering service for business',
-      'after hours call answering',
       'overflow call handling',
     ],
 
@@ -494,14 +493,13 @@ const baseOperations = [
     headline: { lead: 'An inbox is not a queue.', accent: 'Until someone makes it one.' },
     summary:
       'Shared inbox and ticket handling with drafting automation and trained agents, worked to a first-response target rather than to inbox zero.',
-    metaTitle: 'Outsourced Email Support | Universal Virtual Support',
+    metaTitle: 'Email Support Outsourcing | Universal Virtual Support',
     metaDescription:
-      'Outsourced email and ticket support with AI drafting and trained agents, worked to a defined first-response and resolution target.',
+      'Email support outsourcing with AI drafting and trained agents, worked to a defined first-response and resolution target on your own helpdesk.',
     keywords: [
-      'outsourced email support',
-      'ticket handling service',
+      'email support outsourcing',
+      'outsourced ticket support',
       'shared inbox management',
-      'customer support outsourcing',
     ],
 
     intent: {
@@ -733,10 +731,8 @@ const baseOperations = [
     metaDescription:
       'Outsourced order taking across phone, chat and email with live stock validation and direct write-back into your commerce system or ERP.',
     keywords: [
-      'outsourced order taking',
-      'phone order processing',
-      'order entry service',
-      'B2B order processing',
+      'order taking services',
+      'outsourced order processing',
     ],
 
     intent: {
@@ -953,14 +949,13 @@ const baseOperations = [
     },
     summary:
       'Outbound prospecting, lead qualification and follow-up run as a disciplined process — the work that gets skipped when your closers are busy closing.',
-    metaTitle: 'B2B Sales Support | Universal Virtual Support',
+    metaTitle: 'B2B Appointment Setting | Universal Virtual Support',
     metaDescription:
-      'Outsourced B2B sales support: outbound prospecting, inbound lead qualification and systematic follow-up, with everything recorded in your CRM.',
+      'B2B appointment setting and outsourced sales support: outbound prospecting, lead qualification and systematic follow-up, recorded in your CRM.',
     keywords: [
-      'B2B sales outsourcing',
-      'lead qualification service',
-      'outbound prospecting service',
-      'SDR outsourcing',
+      'b2b appointment setting',
+      'outsourced sales support',
+      'lead qualification services',
     ],
 
     intent: {
@@ -1186,14 +1181,14 @@ const baseOperations = [
     },
     summary:
       'Document processing and data operations where extraction handles the volume and trained reviewers handle everything below the confidence threshold.',
-    metaTitle: 'Data Entry & Document Processing | Universal Virtual Support',
+    metaTitle: 'Data Entry Outsourcing | Universal Virtual Support',
     metaDescription:
-      'Outsourced data entry and document processing combining automated extraction with human review of anything below a confidence threshold you set.',
+      'Data entry outsourcing and back office document processing, combining automated extraction with human review of anything below a confidence threshold you set.',
     keywords: [
-      'outsourced data entry',
-      'document processing service',
-      'data extraction and verification',
+      'data entry outsourcing',
       'back office outsourcing',
+      'data entry services',
+      'document processing outsourcing',
     ],
 
     intent: {

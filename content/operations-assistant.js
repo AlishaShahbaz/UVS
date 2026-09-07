@@ -40,10 +40,7 @@ export const assistantOperations = [
       'Virtual assistant services for admin, inbox, calendar and data entry — run as a staffed desk with documented processes, so cover never depends on one person.',
     keywords: [
       'virtual assistant services',
-      'hire a virtual assistant',
-      'virtual assistant for small business',
       'outsourced virtual assistant',
-      'virtual administrative assistant',
       'virtual assistant company',
     ],
 

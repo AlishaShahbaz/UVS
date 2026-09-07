@@ -82,6 +82,7 @@ export const primaryNav = [
         title: 'About',
         links: [
           { label: 'How we work', href: '/about' },
+          { label: 'Blog', href: '/blog' },
           { label: 'Technologies', href: '/technologies' },
           { label: 'Questions', href: '/faq' },
         ],
@@ -120,6 +121,7 @@ export const footerNav = [
     title: 'Company',
     links: [
       { label: 'How we work', href: '/about' },
+      { label: 'Blog', href: '/blog' },
       { label: 'Technologies', href: '/technologies' },
       { label: 'Questions', href: '/faq' },
       { label: 'Contact', href: '/contact' },

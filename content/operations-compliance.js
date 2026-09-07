@@ -33,15 +33,14 @@ export const complianceOperations = [
     },
     summary:
       'Trained reviewers on your verification and document queues, worked to a defined SLA, with every decision recorded against the policy version it was made under.',
-    metaTitle: 'KYC & Onboarding Support | Universal Virtual Support',
+    metaTitle: 'KYC Outsourcing & Onboarding | Universal Virtual Support',
     metaDescription:
-      'Outsourced KYC and onboarding: document review, identity verification and EDD queues worked to a defined SLA by trained reviewers, with a full audit trail.',
+      'KYC outsourcing and customer onboarding: document review, identity verification and EDD queues worked to a defined SLA by trained reviewers, fully audited.',
     keywords: [
-      'outsourced KYC operations',
-      'KYC document review service',
-      'onboarding verification outsourcing',
-      'EDD review team',
-      'fintech onboarding support',
+      'kyc outsourcing',
+      'kyc services',
+      'customer onboarding outsourcing',
+      'outsourced identity verification',
     ],
 
     intent: {
@@ -269,15 +268,14 @@ export const complianceOperations = [
     headline: { lead: 'An alert nobody worked', accent: 'is worse than no alert at all.' },
     summary:
       'Staffed alert review, account investigations and back-office risk operations — worked to an SLA, with the reasoning recorded on every disposition.',
-    metaTitle: 'Transaction Monitoring | Universal Virtual Support',
+    metaTitle: 'Transaction Monitoring & AML | Universal Virtual Support',
     metaDescription:
-      'Outsourced transaction monitoring: alert triage, account reviews and investigation queues worked by trained analysts to a defined SLA, fully audited.',
+      'Transaction monitoring services and AML outsourcing: alert triage, account reviews and investigation queues worked by trained analysts to a defined SLA.',
     keywords: [
-      'outsourced transaction monitoring',
-      'alert review team',
-      'AML alert triage outsourcing',
-      'risk operations outsourcing',
-      'account review back office',
+      'transaction monitoring services',
+      'aml outsourcing',
+      'aml compliance services',
+      'outsourced alert review',
     ],
 
     intent: {

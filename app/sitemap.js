@@ -20,6 +20,7 @@ import { serviceSlugs } from '@/content/services';
 import { operationSlugs } from '@/content/operations';
 import { nicheSlugs } from '@/content/niches';
 import { legalSlugs } from '@/content/legal';
+import { postSlugs } from '@/content/blog';
 import { resolveOrigin } from '@/lib/origin';
 
 /* One resolver, shared with robots.js and the build gate — see lib/origin.js
@@ -44,6 +45,8 @@ export default function sitemap() {
     ...serviceSlugs.map((slug) => entry(`/services/${slug}`, 0.8)),
     ...operationSlugs.map((slug) => entry(`/operations/${slug}`, 0.8)),
     ...nicheSlugs.map((slug) => entry(`/industries/${slug}`, 0.7)),
+    entry('/blog', 0.8, 'weekly'),
+    ...postSlugs.map((slug) => entry(`/blog/${slug}`, 0.7, 'weekly')),
     entry('/about', 0.6),
     entry('/technologies', 0.5),
     entry('/faq', 0.6),

@@ -278,7 +278,7 @@ export const aiEngineering = [
     headline: { lead: 'A chatbot tells you what to do.', accent: 'An agent does it.' },
     summary:
       'Autonomous agents that plan, call real tools against real systems, and leave a trace of every action — with human approval gates on anything consequential.',
-    metaTitle: 'AI Agent Development | Universal Virtual Support',
+    metaTitle: 'AI Agents & Chatbot Development | Universal Virtual Support',
     metaDescription:
       'AI agents that complete tasks end to end: typed tool contracts, scoped permissions, human approval gates and a full replayable trace of every action taken.',
     keywords: [
