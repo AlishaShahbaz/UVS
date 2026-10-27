@@ -357,6 +357,24 @@ export const marketing = [
             'Area, building-type and process content aimed at the long-tail questions aggregators answer generically, plus the service-area structure that makes a single firm legible locally.',
           edge: 'We do not bid or optimise for terms the portals have already won. That is a spend decision, not a capability gap.',
         },
+        {
+          niche: 'limo-chauffeur',
+          label: 'Limo and chauffeur companies',
+          trigger:
+            'Airport-transfer and wedding-car searches are won by directories and booking aggregators that take a cut of every job.',
+          built:
+            'Route, airport and occasion pages for the journeys you actually run, with structured data that lets search and answer engines quote your service area correctly.',
+          edge: 'One page per real route or airport you serve. A page farm of towns you never drive to is thin content and gets treated as such.',
+        },
+        {
+          niche: 'taxi-private-hire',
+          label: 'Taxi and private-hire operators',
+          trigger:
+            '“Taxi near me” is decided in the local pack, and the firm with the busiest control room is invisible in it.',
+          built:
+            'Local search foundations — business profile, service-area structure, station and airport pages — built on the zones you genuinely cover.',
+          edge: 'Built on your real operating area, so the calls it produces are jobs your drivers can reach.',
+        },
       ],
       notFor:
         'If you need revenue in six weeks, this is the wrong channel and we will point you at paid search. Search compounds, and compounding takes time to start.',
@@ -603,6 +621,24 @@ export const marketing = [
           built:
             'Long-tail and qualification-led structure that avoids competing head-on with aggregators on their own terms.',
           edge: 'We do not bid the terms aggregators have already won. That is a spend decision, not a capability gap.',
+        },
+        {
+          niche: 'limo-chauffeur',
+          label: 'Limo and chauffeur companies',
+          trigger:
+            'Airport and corporate searches are expensive, and the clicks that arrive overnight reach a phone nobody answers.',
+          built:
+            'Campaigns on airport, corporate and occasion terms, scheduled against the hours your dispatch desk is covered.',
+          edge: 'Spend runs only when someone can take the booking — the desk and the campaign are planned together.',
+        },
+        {
+          niche: 'taxi-private-hire',
+          label: 'Taxi and private-hire operators',
+          trigger:
+            'Call-only ads produce bursts of calls at exactly the moment the control room is already full.',
+          built:
+            'Call campaigns throttled to controller capacity by hour, with call tracking that ties each ad to a booked job.',
+          edge: 'Bids drop when the board is full. Paying for a call that will hear a queue tone is spend you have already lost.',
         },
       ],
       notFor:

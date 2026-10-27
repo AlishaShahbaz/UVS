@@ -38,8 +38,8 @@ import { spell } from '@/lib/words';
 export const metadata = {
   title: 'Customer Support Outsourcing — staffed desks',
   description:
-    `${spell(operations.length, true)} operations desks across conversation, transaction and compliance: ` +
-    `live chat, voice, email, orders, B2B sales, data entry, KYC onboarding and transaction ` +
+    `${spell(operations.length, true)} operations desks across dispatch, conversation, transaction and compliance: ` +
+    `limo and taxi dispatch, live chat, voice, email, orders, B2B sales, data entry, KYC onboarding and transaction ` +
     `monitoring. Every desk ships with a Team Lead and QA.`,
   alternates: { canonical: '/operations' },
 };
@@ -108,7 +108,7 @@ export default function OperationsPage() {
           lead: `${spell(operations.length, true)} desks.`,
           accent: 'Each one a queue with a number on it.',
         }}
-        lead="Conversation, transaction and compliance. Preview any of them here; each links through to the full page."
+        lead="Dispatch, conversation, transaction and compliance. Preview any of them here; each links through to the full page."
         containerSize="wide"
       >
         <DeskExplorer groups={operationGroups} />

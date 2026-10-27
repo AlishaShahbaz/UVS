@@ -15,6 +15,7 @@
 import { complianceOperations } from './operations-compliance.js';
 import { answeringOperations } from './operations-answering.js';
 import { assistantOperations } from './operations-assistant.js';
+import { dispatchOperations } from './operations-dispatch.js';
 
 const baseOperations = [
   /* ====================================================================== */
@@ -1491,10 +1492,12 @@ export const costPosition = {
     'The comparison assumes equivalent coverage hours, service level and QA. Against a cheaper desk with no lead and no QA function, we are not the cheap option and would not claim to be.',
 };
 
-/* Order sets the menu. Answering sits after the original desks so nothing that
-   already existed moves position — the new cluster is additive, not a
-   reorganisation. */
+/* Order sets the menu. Dispatch leads deliberately: it is the newest commercial
+   line and the one a visitor should meet first — in the Run menu, the homepage
+   grid and the hub. Everything else keeps its relative position; answering
+   still sits after the original desks. */
 export const operations = [
+  ...dispatchOperations,
   ...baseOperations,
   ...assistantOperations,
   ...complianceOperations,

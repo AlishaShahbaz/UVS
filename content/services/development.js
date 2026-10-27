@@ -119,6 +119,15 @@ export const development = [
             'An account-aware trade portal showing real pricing, live stock and reorder history, with the catalogue generated from the ERP rather than maintained twice.',
           edge: 'One source for the catalogue. A portal whose product data drifts from the ERP creates more calls than it removes.',
         },
+        {
+          niche: 'limo-chauffeur',
+          label: 'Limo and chauffeur companies',
+          trigger:
+            'The website is a brochure with a phone number, and corporate clients who want to book a car at midnight cannot.',
+          built:
+            'A fast booking site connected to your dispatch platform — live quotes, airport and hourly bookings, account logins — so online reservations land as real jobs.',
+          edge: 'Bookings write straight into the platform your dispatchers use. No inbox of web forms to re-key in the morning.',
+        },
       ],
       notFor:
         'If you need a five-page site live next week for a fixed low budget, a good template on a good platform will serve you better than we will. That is a real recommendation, not modesty.',
@@ -361,6 +370,15 @@ export const development = [
           built:
             'Scanner-driven apps for picking, counts and movements, writing to the ERP as it happens.',
           edge: 'Built for gloved hands and a scanner, not for a designer’s thumb on a clean phone.',
+        },
+        {
+          niche: 'taxi-private-hire',
+          label: 'Taxi and private-hire fleets',
+          trigger:
+            'Passengers ring to book and ring again to ask where the car is, because the operator has no app of its own.',
+          built:
+            'A branded passenger booking app and driver companion tied to your dispatch system, with live car tracking and in-app payment.',
+          edge: 'The app sits on your dispatch system rather than beside it, so controllers see app bookings on the same board as phone ones.',
         },
       ],
       notFor:

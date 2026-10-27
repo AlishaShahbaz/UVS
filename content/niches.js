@@ -283,7 +283,7 @@ const nicheEntries = [
     constraint:
       'Availability must be live against the PMS or booking system. Taking a reservation for a room that is gone is worse than missing the call.',
     services: ['ai-voice-agents', 'meta-ads', 'seo', 'website-development'],
-    operations: ['voice-calls', 'order-taking', 'live-chat-support'],
+    operations: ['voice-calls', 'order-taking', 'live-chat-support', 'limo-dispatching'],
   },
   {
     slug: 'education',
@@ -339,6 +339,42 @@ const nicheEntries = [
     services: ['ai-development', 'ai-agents', 'website-development', 'seo'],
     operations: ['data-entry', 'order-taking', 'b2b-sales', 'email-support'],
   },
+  {
+    slug: 'limo-chauffeur',
+    label: 'Limo & chauffeur',
+    accent: 'amber',
+    who: 'Limousine, executive chauffeur and airport transfer companies running pre-booked, high-value journeys.',
+    pressure:
+      'The client has paid for certainty, and certainty is produced at the dispatch desk at four in the morning. The owner usually covers that desk personally, which is why the business stops growing at the number of hours one person can stay awake.',
+    signals: [
+      'The owner is still the night dispatcher',
+      'Flight delays are discovered by the chauffeur at arrivals',
+      'Overnight booking enquiries are answered the next morning, if at all',
+      'Event weekends double the jobs and the same two people run the desk',
+    ],
+    constraint:
+      'Dispatch has to happen inside the operator’s own booking platform and under the operator’s name. A second system that has to be reconciled — or a passenger who can tell the call was outsourced — costs more than it saves.',
+    services: ['ai-voice-agents', 'website-development', 'seo', 'google-ads'],
+    operations: ['limo-dispatching', 'after-hours-answering', 'voice-calls'],
+  },
+  {
+    slug: 'taxi-private-hire',
+    label: 'Taxi & private hire',
+    accent: 'azure',
+    who: 'Taxi, cab and private-hire operators running a control room for on-demand and pre-booked work.',
+    pressure:
+      'Demand arrives in bursts — the last train, closing time, the first flights, a wet Friday — and the control room is staffed for the average. Every minute the phones queue, passengers book whoever answers first and drivers sit idle in the wrong part of town.',
+    signals: [
+      'Calls queue during exactly the peaks that pay the most',
+      'Night controllers are hard to hire and impossible to cover at short notice',
+      'Drivers ring the office for help while the office is answering passengers',
+      'Nobody can say how many bookings were lost last weekend',
+    ],
+    constraint:
+      'The dispatch system is the control room. Controllers have to work the live board in that system with real driver positions — a desk working from a copy of the jobs will allocate cars that are already busy.',
+    services: ['ai-voice-agents', 'mobile-app-development', 'google-ads', 'seo'],
+    operations: ['taxi-dispatch', 'after-hours-answering', 'voice-calls'],
+  },
 ];
 
 /**
@@ -350,8 +386,8 @@ const nicheEntries = [
  * the homepage grid, the footer column and the sitemap at once, and nobody has
  * to move a forty-line object to do it.
  *
- * The header splits this list into two columns of six and seven, so the first
- * six read down the left and the rest down the right.
+ * The header splits this list into two balanced columns, so the first
+ * half reads down the left and the rest down the right.
  *
  * Anything not listed falls to the end in its original order — a new niche is
  * never dropped, it just is not prioritised until someone says so.
@@ -359,6 +395,8 @@ const nicheEntries = [
 export const DISPLAY_ORDER = [
   'fintech',
   'logistics',
+  'limo-chauffeur',
+  'taxi-private-hire',
   'real-estate',
   'healthcare',
   'financial-services',

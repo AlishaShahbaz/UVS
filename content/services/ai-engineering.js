@@ -622,6 +622,24 @@ export const aiEngineering = [
             'Immediate answering that qualifies the enquiry, books the viewing against agent availability, and logs it before the agent is back in the car.',
           edge: 'Qualification is tuned not to gatekeep — losing the buyer who was worth the call costs more than an extra viewing.',
         },
+        {
+          niche: 'limo-chauffeur',
+          label: 'Limo and chauffeur operators',
+          trigger:
+            'Quote, availability and “where is my driver” calls arrive overnight, and the owner is the one who answers them.',
+          built:
+            'A voice agent that quotes from your rate rules, takes the booking into your dispatch platform and reads chauffeur and flight status back to the passenger.',
+          edge: 'Anything outside the rules — a VIP account, a complaint, a same-hour change — goes straight to a dispatcher we staff.',
+        },
+        {
+          niche: 'taxi-private-hire',
+          label: 'Taxi and private-hire operators',
+          trigger:
+            'Closing time produces fifty booking calls in ten minutes, and passengers who hear a queue tone ring the next firm.',
+          built:
+            'Concurrent voice booking at the first ring — pickup, destination and time captured and written into your dispatch system as a live job.',
+          edge: 'Addresses are confirmed back and validated against your zones before the job is created, so cars are not sent to the wrong street.',
+        },
       ],
       notFor:
         'If your calls are long, consultative and different every time, a voice agent will frustrate your callers. We would rather staff that line with people — which we also do.',

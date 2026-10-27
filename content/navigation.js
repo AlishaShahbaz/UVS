@@ -54,7 +54,7 @@ export const primaryNav = [
       {
         title: 'By business type',
         links: niches
-          .slice(0, 6)
+          .slice(0, Math.ceil(niches.length / 2))
           .map((n) => ({
             label: n.label,
             href: `/industries/${n.slug}`,
@@ -64,7 +64,7 @@ export const primaryNav = [
       {
         title: ' ',
         links: niches
-          .slice(6)
+          .slice(Math.ceil(niches.length / 2))
           .map((n) => ({
             label: n.label,
             href: `/industries/${n.slug}`,

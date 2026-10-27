@@ -13,7 +13,7 @@
 
 import Link from 'next/link';
 import { services, serviceGroups } from '@/content/services';
-import { operations } from '@/content/operations';
+import { operations, operationBySlug } from '@/content/operations';
 import { niches } from '@/content/niches';
 import { company } from '@/content/company';
 import {
@@ -25,6 +25,7 @@ import {
   Button,
   Badge,
   Datum,
+  TextLink,
 } from '@/design-system';
 import { IntentSection } from '@/components/sections/intent-section';
 import { HandoffFigure } from '@/components/sections/handoff-figure';
@@ -36,9 +37,24 @@ import { spell } from '@/lib/words';
 export const metadata = {
   title: 'Universal Virtual Support — we build the system, then we run it',
   description:
-    'AI engineering, software and campaigns — plus the staffed desks that hold the queues they create. Chat, voice, email, orders, sales and back office, to a service level you set.',
+    'Limo and taxi dispatch, chat, voice, email, orders, sales and back office — staffed desks to a service level you set, plus the AI, software and campaigns that feed them.',
   alternates: { canonical: '/' },
 };
+
+/* Dispatch is surfaced at the top of the page, not only in the desk grid: it
+   is the newest line and the one a first-time visitor is least likely to
+   expect from us. The two desks are read from the content files, so the
+   copy here cannot drift from the pages it links to. */
+const DISPATCH_DESKS = ['limo-dispatching', 'taxi-dispatch']
+  .map((slug) => operationBySlug[slug])
+  .filter(Boolean);
+
+const DISPATCH_CAPABILITIES = [
+  'Bookings by phone, email and web',
+  'Chauffeur and driver allocation',
+  'Live flight monitoring',
+  'Driver support line',
+];
 
 export default function HomePage() {
   const jsonLd = [
@@ -127,6 +143,114 @@ export default function HomePage() {
                   Find your business type
                 </Button>
               </div>
+
+              {/* Dispatch callout. Hover or keyboard focus opens a preview of
+                  both desks with direct links; the panel opens upwards because
+                  the ink hero clips anything that overflows its bottom edge.
+                  Pure CSS, so it works in a server component and on keyboard
+                  via focus-within. On touch, a tap jumps to #dispatch below. */}
+              {DISPATCH_DESKS.length > 0 && (
+                <div data-accent="amber" className="group/dispatch relative w-fit">
+                  <Link
+                    href="#dispatch"
+                    aria-describedby="dispatch-preview"
+                    className="border-ink-edge hover:bg-ink-lift group-focus-within/dispatch:bg-ink-lift text-micro flex items-center gap-3 rounded-full border py-2 pr-5 pl-2 transition-colors hover:border-[var(--accent-lift)] group-focus-within/dispatch:border-[var(--accent-lift)]"
+                  >
+                    <span className="text-ink flex items-center gap-1.5 rounded-full bg-[var(--accent-lift)] px-2.5 py-1 font-mono text-[10px] font-medium tracking-[0.14em] uppercase">
+                      <span aria-hidden className="relative flex h-1.5 w-1.5">
+                        <span className="bg-ink absolute inline-flex h-full w-full animate-ping rounded-full opacity-50 motion-reduce:animate-none" />
+                        <span className="bg-ink relative inline-flex h-1.5 w-1.5 rounded-full" />
+                      </span>
+                      Now dispatching
+                    </span>
+                    <span className="text-prose-inv-soft group-hover/dispatch:text-prose-inv transition-colors">
+                      Limo, chauffeur and taxi dispatch desks
+                    </span>
+                    <span
+                      aria-hidden
+                      className="text-[var(--accent-lift)] transition-transform duration-300 group-hover/dispatch:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </Link>
+
+                  {/* The pb-3 is the hover bridge between pill and panel. */}
+                  <div
+                    id="dispatch-preview"
+                    className="invisible absolute bottom-full left-0 z-30 w-[min(34rem,calc(100vw-2.5rem))] translate-y-2 pb-3 opacity-0 transition-all duration-300 group-focus-within/dispatch:visible group-focus-within/dispatch:translate-y-0 group-focus-within/dispatch:opacity-100 group-hover/dispatch:visible group-hover/dispatch:translate-y-0 group-hover/dispatch:opacity-100"
+                  >
+                    <div className="rounded-panel border-ink-edge bg-ink-lift overflow-hidden border shadow-xl shadow-black/40">
+                      <div className="border-ink-edge flex items-center justify-between gap-4 border-b px-5 py-3">
+                        <span className="text-eyebrow font-mono tracking-[0.16em] text-[var(--accent-lift)] uppercase">
+                          Dispatch desks
+                        </span>
+                        <span className="text-micro text-prose-inv-faint">
+                          Your system · your name · your hours
+                        </span>
+                      </div>
+
+                      <ul className="bg-ink-edge grid gap-px sm:grid-cols-2">
+                        {DISPATCH_DESKS.map((desk) => (
+                          <li key={desk.slug} data-accent={desk.accent} className="bg-ink-lift">
+                            <Link
+                              href={`/operations/${desk.slug}`}
+                              className="group/desk hover:bg-ink flex h-full flex-col gap-2.5 p-5 transition-colors"
+                            >
+                              <span className="text-eyebrow font-mono tracking-[0.14em] text-[var(--accent-lift)] uppercase">
+                                {desk.eyebrow}
+                              </span>
+                              <span className="text-prose-inv text-[0.95rem] leading-snug font-medium [text-wrap:balance]">
+                                {desk.headline.lead}
+                              </span>
+                              <span className="text-micro text-prose-inv-soft leading-relaxed">
+                                {desk.summary}
+                              </span>
+                              <ul className="flex flex-col gap-1 pt-1">
+                                {desk.solution.pillars.map((pillar) => (
+                                  <li
+                                    key={pillar.title}
+                                    className="text-micro text-prose-inv-soft flex items-center gap-2"
+                                  >
+                                    <span
+                                      aria-hidden
+                                      className="h-1 w-3 shrink-0 rounded-full bg-[var(--accent-lift)]"
+                                    />
+                                    {pillar.title}
+                                  </li>
+                                ))}
+                              </ul>
+                              <span className="text-micro mt-auto flex items-center gap-2 pt-2 font-medium text-[var(--accent-lift)]">
+                                View {desk.title}
+                                <span
+                                  aria-hidden
+                                  className="transition-transform duration-300 group-hover/desk:translate-x-1"
+                                >
+                                  →
+                                </span>
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="border-ink-edge flex flex-wrap items-center gap-x-6 gap-y-2 border-t px-5 py-3">
+                        <Link
+                          href="/contact"
+                          className="text-micro text-prose-inv font-medium hover:text-[var(--accent-lift)]"
+                        >
+                          Talk to us about dispatch →
+                        </Link>
+                        <Link
+                          href="#dispatch"
+                          className="text-micro text-prose-inv-faint hover:text-prose-inv"
+                        >
+                          See the overview below ↓
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* The two halves, stated as an index. */}
@@ -156,6 +280,95 @@ export default function HomePage() {
           </div>
         </Container>
       </Section>
+
+      {/* ── EVALUATE — Dispatch, surfaced directly under the hero so a visitor
+             learns it exists before scrolling past the positioning. Kept
+             compact on purpose: it is an announcement, not a second hero. ─── */}
+      {DISPATCH_DESKS.length > 0 && (
+        <Section
+          id="dispatch"
+          size="tight"
+          data-accent="amber"
+          className="border-paper-edge scroll-mt-24 border-b"
+        >
+          <Container size="wide">
+            <div className="grid gap-10 lg:grid-cols-[1fr_1.25fr] lg:items-center lg:gap-14">
+              <header className="flex flex-col gap-5">
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <Eyebrow>Dispatch</Eyebrow>
+                  <span className="text-eyebrow text-prose-faint font-mono tracking-[0.14em] uppercase">
+                    Limo · Chauffeur · Taxi
+                  </span>
+                </div>
+                <h2 className="text-h3 font-medium [text-wrap:balance]">
+                  We run your dispatch desk too.{' '}
+                  <span className="accent-phrase">Booked, allocated, closed out.</span>
+                </h2>
+                <p className="measure text-micro text-prose-soft leading-relaxed">
+                  Trained dispatchers and taxi controllers working inside your own
+                  platform, in your company name — bookings, chauffeur and driver
+                  allocation, flight and board monitoring, and the changes nobody planned
+                  for. Nights and peaks, or the whole week.
+                </p>
+
+                <ul className="grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
+                  {DISPATCH_CAPABILITIES.map((capability) => (
+                    <li
+                      key={capability}
+                      className="text-micro text-prose flex items-center gap-2"
+                    >
+                      <span
+                        aria-hidden
+                        className="h-1 w-3 shrink-0 rounded-full bg-[var(--accent)]"
+                      />
+                      {capability}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <Button href="/contact" variant="accent">
+                    Talk to us about dispatch
+                  </Button>
+                  <TextLink href="/industries/limo-chauffeur" className="text-micro">
+                    Built for transport operators
+                  </TextLink>
+                </div>
+              </header>
+
+              <ul className="rounded-panel border-paper-edge bg-paper-edge grid gap-px overflow-hidden border md:grid-cols-2">
+                {DISPATCH_DESKS.map((desk) => (
+                  <li key={desk.slug} data-accent={desk.accent} className="bg-paper">
+                    <Link
+                      href={`/operations/${desk.slug}`}
+                      className="group hover:bg-paper-sunk flex h-full flex-col gap-3 p-6 transition-colors"
+                    >
+                      <span className="text-eyebrow flex items-center gap-2 font-mono tracking-[0.14em] text-[var(--accent)] uppercase">
+                        {desk.eyebrow}
+                        <span
+                          aria-hidden
+                          className="ml-auto transition-transform duration-300 group-hover:translate-x-0.5"
+                        >
+                          →
+                        </span>
+                      </span>
+                      <span className="text-h4 leading-snug font-medium [text-wrap:balance]">
+                        {desk.headline.lead}
+                      </span>
+                      <span className="text-micro text-prose-soft leading-relaxed">
+                        {desk.summary}
+                      </span>
+                      <span className="text-micro mt-auto pt-1 font-medium text-[var(--accent)]">
+                        View the desk
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Container>
+        </Section>
+      )}
 
       {/* ── UNDERSTAND — the seam. The claim, drawn. ───────────────────── */}
       <IntentSection

@@ -136,7 +136,7 @@ export const company = {
       id: 'run',
       label: 'Run',
       title: 'We run the desk',
-      body: 'Staffed queues with a service level — chat, voice, email, orders, B2B sales and back office. Covered around the clock if you need it.',
+      body: 'Staffed queues with a service level — limo and taxi dispatch, chat, voice, email, orders, B2B sales and back office. Covered around the clock if you need it.',
       href: '/operations',
     },
     {
